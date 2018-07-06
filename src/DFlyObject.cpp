@@ -1,0 +1,145 @@
+//
+//  DFlyObject.cpp
+//  PDistortionAR
+//
+//  Created by RengTsai on 2018/7/4.
+//
+
+#include "DFlyObject.h"
+
+//--------------------------------------------------------------
+DFlyObject::DFlyObject(){
+    
+}
+
+DFlyObject::DFlyObject(float x,float y,float z){
+    
+    loc=ofVec3f(x,y,z);
+    vel=ofVec3f(0);
+    acc=ofVec3f(0);
+    
+    phi=ofRandom(TWO_PI);
+}
+
+//--------------------------------------------------------------
+void DFlyObject::draw(){
+    
+    ofPushStyle();
+    ofSetColor(255,255*sin(phi));
+    ofPushMatrix();
+    ofTranslate(loc);
+        ofDrawSphere(0,0,0,rad);
+    ofPopMatrix();
+    ofPopStyle();
+    
+}
+void DFlyObject::update(){
+}
+
+void DFlyObject::updateFlock(vector<DFlyObject*>& others){
+    
+    flock(others);
+    vel+=acc;
+    vel.limit(maxSpeed);
+    loc+=vel;
+    
+    acc*=0;
+    
+}
+
+//--------------------------------------------------------------
+
+void DFlyObject::flock(vector<DFlyObject*>& others){
+    
+    ofVec3f sep=seperate(others);
+    ofVec3f ali=align(others);
+    ofVec3f coh=cohesion(others);
+    
+    sep*=1.5;
+    ali*=1.0;
+    coh*=1.0;
+    
+    applyForce(sep);
+    applyForce(ali);
+    applyForce(coh);
+    
+    //center
+    ofVec3f cent_desired=cent-loc;
+    ofVec3f cent_steer=cent_desired-vel;
+    cent_steer.limit(maxForce*1.2);
+    applyForce(cent_steer);
+    
+}
+
+void DFlyObject::applyForce(ofVec3f force){
+    acc+=force;
+}
+
+ofVec3f DFlyObject::align(vector<DFlyObject*>& others){
+    float neighbor_dist=rad*5;
+    ofVec3f sum(0);
+    
+    for(auto &b:others){
+        float d=loc.distance(b->loc);
+        if(d>0 && d<neighbor_dist){
+            sum+=b->vel;
+        }
+    }
+    sum.normalize();
+    sum*=maxSpeed;
+    
+    ofVec3f steer=sum-vel;
+    steer.limit(maxForce);
+    return steer;
+    
+}
+ofVec3f DFlyObject::cohesion(vector<DFlyObject*>& others){
+    
+    float neighbor_dist=rad*3;
+    ofVec3f sum;
+    int count=0;
+    for(auto &b:others){
+        float d=loc.distance(b->loc);
+        if(d>0 && d<neighbor_dist){
+            sum+=b->loc;
+            count++;
+        }
+    }
+    if(count>0){
+        sum/=count;
+        sum.normalize();
+        sum*=maxSpeed;
+        ofVec3f steer=sum-vel;
+        steer.limit(maxForce);
+        return steer;
+    }
+    return ofVec3f(0);
+    
+    
+}
+ofVec3f DFlyObject::seperate(vector<DFlyObject*>& others){
+    
+    float desired_separataion=rad*3;
+    ofVec3f sum(0);
+    int count=0;
+    for(auto &b:others){
+        float d=loc.distance(b->loc);
+        if(d>0 && d<desired_separataion){
+            ofVec3f diff=loc-b->loc;
+            diff.normalize();
+            diff/=d;
+            sum+=diff;
+            count++;
+        }
+    }
+    if(count>0){
+        sum/=count;
+        sum.normalize();
+        sum*=maxSpeed;
+        ofVec3f steer=sum-vel;
+        steer.limit(maxForce);
+        return steer;
+    }
+    return ofVec3f(0);
+    
+}
