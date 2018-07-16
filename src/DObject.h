@@ -32,8 +32,8 @@ public:
         return !_forever && _last_time<0;
     }
     
-    virtual vector<DFlyObject> breakdown(){
-        vector<DFlyObject> _fly;
+    virtual vector<DFlyObject*> breakdown(){
+        vector<DFlyObject*> _fly;
         return _fly;
     }
 };

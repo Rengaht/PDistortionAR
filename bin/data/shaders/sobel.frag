@@ -18,8 +18,9 @@ uniform sampler2D inputImageTexture;
 uniform float window_width;
 uniform float window_height;
 
-uniform float show_height;
-uniform float frame_distort;
+uniform mat4 particlePos;
+//uniform float show_angle;
+//uniform vec2 force_vector;
 
 uniform float show_threshold;
 
@@ -29,10 +30,8 @@ vec4 permute(vec4 x){return mod(((x*34.0)+1.0)*x, 289.0);}
 vec2 fade(vec2 t) {return t*t*t*(t*(t*6.0-15.0)+10.0);}
 
 float cnoise(vec2 P){
-//    vec4 Pi = floor(P.xyxy) + vec4(0.0, 0.0, 1.0, 1.0);
-//    vec4 Pf = fract(P.xyxy) - vec4(0.0, 0.0, 1.0, 1.0);
-    vec4 Pi = floor(P.xyxy) + vec4(0.0, 0.0, show_height, 1.0);
-    vec4 Pf = fract(P.xyxy) - vec4(0.0, 0.0, show_height, 1.0);
+    vec4 Pi = floor(P.xyxy) + vec4(0.0, 0.0, 1.0, 1.0);
+    vec4 Pf = fract(P.xyxy) - vec4(0.0, 0.0, 1.0, 1.0);
     Pi = mod(Pi, 289.0); // To avoid truncation effects in permutation
     vec4 ix = Pi.xzxz;
     vec4 iy = Pi.yyww;
@@ -66,12 +65,52 @@ float cnoise(vec2 P){
 
 void main(){
     textureCoordinate = texCoord;
+    
     vec2 dir=vec2(1.0/window_width,1.0/window_height);
     
-    if((textureCoordinate.y+0.1*cnoise(textureCoordinate))>(show_height)){
-        gl_FragColor=texture2D(Sampler,textureCoordinate);
-        return;
+    if(show_threshold<1.0){//} && texCoord.y>show_threshold){
+        float sum;
+        float dr,dx,dy;
+        sum=.0;
+//        for(int i=0;i<4;++i){
+//            dr=particlePos[i][2];
+//            dx=texCoord.x*window_width-particlePos[i][0];
+//            dy=(1.0-texCoord.y)*window_height-particlePos[i][1];
+//            sum+=dr*dr/(dx*dx+dy*dy);
+//        }
+
+        dr=mix(window_width/4.0,window_width/3.0,show_threshold);
+        for(float i=0.0;i<4.0;++i){
+            int ix=int(floor(i*2.0/4.0));
+            int iy=int(floor(mod((i*2.0),4.0)));
+            int jx=int(floor((i*2.0+1.0)/4.0));
+            int jy=int(floor(mod((i*2.0+1.0),4.0)));
+            
+            dx=texCoord.x*window_width-particlePos[ix][iy];
+            dy=(1.0-texCoord.y)*window_height-particlePos[jx][jy];
+            sum+=dr*dr*2.0/(dx*dx+dy*dy);
+        }
+//        dr=particlePos[3][2];
+        dx=texCoord.x*window_width;
+        dy=(texCoord.y-show_threshold)*window_height;
+        sum+=dr*dr/(dx*dx+dy*dy);
+//
+//        dr=particlePos[3][2];
+        dx=window_width-texCoord.x*window_width;
+        dy=(texCoord.y-show_threshold)*window_height;
+        sum+=dr*dr/(dx*dx+dy*dy);
+        
+        if(sum<(1.0-show_threshold-0.1*cnoise(textureCoordinate))){
+            gl_FragColor=texture2D(Sampler,textureCoordinate);
+            return;
+        }
     }
+//    //if((textureCoordinate.y+0.1*cnoise(textureCoordinate))>(show_height+tan(show_angle))){
+//    vec2 p=normalize(vec2(.5,show_height)-textureCoordinate);
+//    if(abs(acos(dot(p,force_vector)))<=1.57){
+//        gl_FragColor=texture2D(Sampler,textureCoordinate);
+//        return;
+//    }
     if(mod(floor(texCoord.x*window_width),4.0)!=mod(floor(texCoord.y*window_height),4.0)){
         gl_FragColor=vec4(0,0,0,1.0);
         return;
@@ -114,8 +153,12 @@ void main(){
 
     //gl_FragColor = vec4(gradientMagnitude, normalizedDirection.x, normalizedDirection.y, 1.0);
     if(gradientMagnitude>.5){
-        gl_FragColor=mix(vec4(vec3(gradientMagnitude),1.0),texture2D(Sampler,textureCoordinate),show_threshold);
-    }else gl_FragColor=vec4(0,0,0,1.0);
+//          gl_FragColor=vec4(0,0,0,1.0);
+        gl_FragColor=mix(vec4(vec3(gradientMagnitude),1.0),texture2D(Sampler,textureCoordinate),show_threshold/2.0);
+    }else{
+      gl_FragColor=vec4(0,0,0,1.0);
+//        gl_FragColor=vec4(vec3(1.0-gradientMagnitude),1.0);
+    }
     
     
     

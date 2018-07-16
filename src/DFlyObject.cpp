@@ -8,17 +8,16 @@
 #include "DFlyObject.h"
 
 //--------------------------------------------------------------
-DFlyObject::DFlyObject(){
+DFlyObject::DFlyObject(ofVec3f loc_,ofMesh mesh_){
     
-}
-
-DFlyObject::DFlyObject(float x,float y,float z){
-    
-    loc=ofVec3f(x,y,z);
+    loc=loc_;
     vel=ofVec3f(0);
     acc=ofVec3f(0);
     
     phi=ofRandom(TWO_PI);
+    
+    _mesh=mesh_;
+    
 }
 
 //--------------------------------------------------------------
@@ -26,9 +25,17 @@ void DFlyObject::draw(){
     
     ofPushStyle();
     ofSetColor(255,255*sin(phi));
+    ofSetLineWidth(5);
+    
     ofPushMatrix();
     ofTranslate(loc);
-        ofDrawSphere(0,0,0,rad);
+        //ofDrawSphere(0,0,0,rad);
+//    ofBeginShape();
+//    ofVertex(0,0,0);
+//    for(auto& p:_vertex) ofVertex(p);
+//    ofEndShape();
+    _mesh.draw();
+    
     ofPopMatrix();
     ofPopStyle();
     
@@ -51,7 +58,7 @@ void DFlyObject::updateFlock(vector<DFlyObject*>& others){
 
 void DFlyObject::flock(vector<DFlyObject*>& others){
     
-    ofVec3f sep=seperate(others);
+    ofVec3f sep=separate(others);
     ofVec3f ali=align(others);
     ofVec3f coh=cohesion(others);
     
@@ -117,7 +124,7 @@ ofVec3f DFlyObject::cohesion(vector<DFlyObject*>& others){
     
     
 }
-ofVec3f DFlyObject::seperate(vector<DFlyObject*>& others){
+ofVec3f DFlyObject::separate(vector<DFlyObject*>& others){
     
     float desired_separataion=rad*3;
     ofVec3f sum(0);

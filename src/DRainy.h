@@ -48,7 +48,7 @@ public:
         
         for(auto& a:_pt){
             a.y-=_vel*ofNoise(a.x,a.z);
-            if(a.y<0) a.y=ofRandom(rad*2);
+            if(a.y<0) a.y=ofNoise(a.z*a.x)*rad*2;
         }
     }
     

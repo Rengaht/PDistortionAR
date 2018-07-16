@@ -17,8 +17,10 @@ private:
     void applyForce(ofVec3f force);
     ofVec3f align(vector<DFlyObject*>& others);
     ofVec3f cohesion(vector<DFlyObject*>& others);
-    ofVec3f seperate(vector<DFlyObject*>& others);
+    ofVec3f separate(vector<DFlyObject*>& others);
     
+    //vector<ofVec3f> _vertex;
+    ofVboMesh _mesh;
     
 public:
 
@@ -28,8 +30,8 @@ public:
     
     float phi;
     
-    DFlyObject();
-    DFlyObject(float x,float y,float z);
+    //DFlyObject();
+    DFlyObject(ofVec3f loc_,ofMesh mesh_);
     
     virtual void draw();
 //    void drawTextureBox(ofTexture tex_);

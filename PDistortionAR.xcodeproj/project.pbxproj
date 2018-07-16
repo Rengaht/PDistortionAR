@@ -19,16 +19,18 @@
 		678E130E17951540005B6D19 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130D17951540005B6D19 /* Default@2x.png */; };
 		678E131017951549005B6D19 /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */; };
 		67DFA53619F92A69003B3434 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67DFA53419F92A5E003B3434 /* Accelerate.framework */; };
+		87A34EBC0F47C29339CF1D28 /* Delaunay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E2A7B869B0465AEBF28825D /* Delaunay.cpp */; };
+		888D698EA7C67CF20BABEDAF /* MyAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 623C80DF40EE6BCDFCC80B51 /* MyAppViewController.mm */; };
 		8DEE3593CFC3E0A0F3578C2D /* ARCam.mm in Sources */ = {isa = PBXBuildFile; fileRef = DCA11A3992D2441F6D8D2DBD /* ARCam.mm */; };
+		9102D0609CDD0B902F138C68 /* ofxDelaunay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE3E908E4BB3468853C50ED /* ofxDelaunay.cpp */; };
 		966DC6CFF8359AF2BCC8EAFD /* ARAnchorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBAC3A38884A86BA86D4C26D /* ARAnchorManager.mm */; };
-		A6E5786820ECAF7C0087645E /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6E5786720ECAF7C0087645E /* ARKit.framework */; };
-		A6E5786C20ECB89A0087645E /* MyAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = A6E5786B20ECB8990087645E /* MyAppDelegate.mm */; };
-		A6E5787220ECB8A20087645E /* OFAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A6E5787020ECB8A20087645E /* OFAppViewController.mm */; };
-		A6E5787320ECB8A20087645E /* MyAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A6E5787120ECB8A20087645E /* MyAppViewController.mm */; };
-		A6E5787520ECC0CB0087645E /* DFlyObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A6E5787420ECC0CB0087645E /* DFlyObject.cpp */; };
+		A6687C3920FC972200DC4557 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6687C3820FC972200DC4557 /* ARKit.framework */; };
+		A9A16B1E62191E33535D39D3 /* MyAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63C79BA3EC38360C02D550C /* MyAppDelegate.mm */; };
 		BB16EBD20F2B2A9500518274 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD10F2B2A9500518274 /* OpenGLES.framework */; };
 		BB16EBD90F2B2AB500518274 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD80F2B2AB500518274 /* QuartzCore.framework */; };
 		BBE5EAB80F49AD8400F28951 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */; };
+		CB9CBC6D4EDF6466EB7BCF5B /* OFAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CDA37EEC683BC5C1A109FB2F /* OFAppViewController.mm */; };
+		CD9BBCFA0C8D9A9475BD8A8E /* DFlyObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD2C0837C7E3604DAE465BAF /* DFlyObject.cpp */; };
 		E41D400B13B39D2100A75A5D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41D400613B39D2100A75A5D /* AVFoundation.framework */; };
 		E41D400C13B39D2100A75A5D /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41D400713B39D2100A75A5D /* CoreMedia.framework */; };
 		E41D400D13B39D2100A75A5D /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E41D400813B39D2100A75A5D /* CoreVideo.framework */; };
@@ -57,16 +59,23 @@
 
 /* Begin PBXFileReference section */
 		09673E6D454686E403C40A18 /* ARUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ARUtils.h; path = ../../../addons/ofxARKit/src/ARUtils.h; sourceTree = SOURCE_ROOT; };
+		0F85EAA5C2D1F37904EC6E76 /* DFlow.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DFlow.h; path = src/DFlow.h; sourceTree = SOURCE_ROOT; };
 		16C7F36EEA16280EF694F1CA /* ARProcessor.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = ARProcessor.mm; path = ../../../addons/ofxARKit/src/ARProcessor.mm; sourceTree = SOURCE_ROOT; };
+		1C3366001F058C50D5B9801A /* DSandLine.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DSandLine.h; path = src/DSandLine.h; sourceTree = SOURCE_ROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* PDistortionAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PDistortionAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		1E2A7B869B0465AEBF28825D /* Delaunay.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Delaunay.cpp; path = ../../../addons/ofxDelaunay/libs/Delaunay/src/Delaunay.cpp; sourceTree = SOURCE_ROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		28CD9659C1D4E430F1B9C2E4 /* Delaunay.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Delaunay.h; path = ../../../addons/ofxDelaunay/libs/Delaunay/src/Delaunay.h; sourceTree = SOURCE_ROOT; };
 		302A7A61ECBFE243BE2A6D15 /* ARProcessor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ARProcessor.h; path = ../../../addons/ofxARKit/src/ARProcessor.h; sourceTree = SOURCE_ROOT; };
 		32CA4F630368D1EE00C91783 /* ofxiOS_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxiOS_Prefix.pch; sourceTree = "<group>"; };
+		39B3A8D4FD292F93C28B8AEC /* MyAppViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = MyAppViewController.h; path = src/viewcontrollers/MyAppViewController.h; sourceTree = SOURCE_ROOT; };
+		3FCC3CC63F1FB03FA5A6C417 /* KDTree.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = KDTree.h; path = ../../../addons/ofxSpatialHash/libs/ofxSpatialHash/include/ofx/KDTree.h; sourceTree = SOURCE_ROOT; };
 		5326AEA710A23A0500278DE6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		53F323EA10A20EDB00E0DAE4 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		581E4B10C1444D6272A60B20 /* ARShaders.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ARShaders.h; path = ../../../addons/ofxARKit/src/ARShaders.h; sourceTree = SOURCE_ROOT; };
+		623C80DF40EE6BCDFCC80B51 /* MyAppViewController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = MyAppViewController.mm; path = src/viewcontrollers/MyAppViewController.mm; sourceTree = SOURCE_ROOT; };
 		6305FC4AB701AEC8BA64E935 /* ARDebugUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ARDebugUtils.h; path = ../../../addons/ofxARKit/src/ARDebugUtils.h; sourceTree = SOURCE_ROOT; };
 		678E130717951530005B6D19 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "bin/data/Icon@2x.png"; sourceTree = "<group>"; };
 		678E130917951536005B6D19 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = bin/data/Icon.png; sourceTree = "<group>"; };
@@ -74,27 +83,26 @@
 		678E130D17951540005B6D19 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "bin/data/Default@2x.png"; sourceTree = "<group>"; };
 		678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x~iphone.png"; path = "bin/data/Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
 		67DFA53419F92A5E003B3434 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		86BAACFE0BF7EA1416376330 /* MyAppDelegate.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = MyAppDelegate.h; path = src/delegates/MyAppDelegate.h; sourceTree = SOURCE_ROOT; };
+		8AA89AFF4E71C7EC510642B7 /* ofxDelaunay.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDelaunay.h; path = ../../../addons/ofxDelaunay/src/ofxDelaunay.h; sourceTree = SOURCE_ROOT; };
 		8CED944372A372672447BABA /* ARAnchorManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ARAnchorManager.h; path = ../../../addons/ofxARKit/src/ARAnchorManager.h; sourceTree = SOURCE_ROOT; };
-		A622ADB020EE684E00AE9F4E /* DZigLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DZigLine.h; sourceTree = "<group>"; };
-		A622ADB220EE899D00AE9F4E /* DRainy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DRainy.h; sourceTree = "<group>"; };
-		A622ADB520EF62DC00AE9F4E /* DObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DObject.h; sourceTree = "<group>"; };
-		A6E5786520ECAECB0087645E /* DFlyObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DFlyObject.h; sourceTree = "<group>"; };
-		A6E5786720ECAF7C0087645E /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
-		A6E5786A20ECB8990087645E /* MyAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAppDelegate.h; sourceTree = "<group>"; };
-		A6E5786B20ECB8990087645E /* MyAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAppDelegate.mm; sourceTree = "<group>"; };
-		A6E5786E20ECB8A20087645E /* OFAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OFAppViewController.h; sourceTree = "<group>"; };
-		A6E5786F20ECB8A20087645E /* MyAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAppViewController.h; sourceTree = "<group>"; };
-		A6E5787020ECB8A20087645E /* OFAppViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OFAppViewController.mm; sourceTree = "<group>"; };
-		A6E5787120ECB8A20087645E /* MyAppViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyAppViewController.mm; sourceTree = "<group>"; };
-		A6E5787420ECC0CB0087645E /* DFlyObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DFlyObject.cpp; sourceTree = "<group>"; };
-		A6E5787720EDBBB40087645E /* DPool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPool.h; sourceTree = "<group>"; };
-		A6E5787C20EE076D0087645E /* DRecord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DRecord.h; sourceTree = "<group>"; };
+		A1A23E036074B0FDF6F3662C /* DPiece.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DPiece.h; path = src/DPiece.h; sourceTree = SOURCE_ROOT; };
+		A6687C3820FC972200DC4557 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
+		A6687C3A20FCFDDF00DC4557 /* DLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLine.h; sourceTree = "<group>"; };
+		AFA32F15CBC34924092B5BDA /* OFAppViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = OFAppViewController.h; path = src/viewcontrollers/OFAppViewController.h; sourceTree = SOURCE_ROOT; };
+		B93E3253E66E6B282C408B7C /* nanoflann.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = nanoflann.hpp; path = ../../../addons/ofxSpatialHash/libs/nanoflann/include/nanoflann.hpp; sourceTree = SOURCE_ROOT; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BB16EBD80F2B2AB500518274 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB24DDC910DA781C00E9C588 /* ofxiOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ofxiOS-Info.plist"; sourceTree = "<group>"; };
 		BBAC3A38884A86BA86D4C26D /* ARAnchorManager.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = ARAnchorManager.mm; path = ../../../addons/ofxARKit/src/ARAnchorManager.mm; sourceTree = SOURCE_ROOT; };
+		BBE3E908E4BB3468853C50ED /* ofxDelaunay.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxDelaunay.cpp; path = ../../../addons/ofxDelaunay/src/ofxDelaunay.cpp; sourceTree = SOURCE_ROOT; };
 		BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		C30B22DF92B8942DDA6005CC /* DObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DObject.h; path = src/DObject.h; sourceTree = SOURCE_ROOT; };
+		C7741F5222EA5255DD6710ED /* ofxSpatialHash.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSpatialHash.h; path = ../../../addons/ofxSpatialHash/src/ofxSpatialHash.h; sourceTree = SOURCE_ROOT; };
 		CC7B4B2B9605C0BF2C8A133C /* ofxARKit.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxARKit.h; path = ../../../addons/ofxARKit/src/ofxARKit.h; sourceTree = SOURCE_ROOT; };
+		CD2C0837C7E3604DAE465BAF /* DFlyObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = DFlyObject.cpp; path = src/DFlyObject.cpp; sourceTree = SOURCE_ROOT; };
+		CDA37EEC683BC5C1A109FB2F /* OFAppViewController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = OFAppViewController.mm; path = src/viewcontrollers/OFAppViewController.mm; sourceTree = SOURCE_ROOT; };
+		DA9A7112491C40053F01C457 /* DRecord.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DRecord.h; path = src/DRecord.h; sourceTree = SOURCE_ROOT; };
 		DCA11A3992D2441F6D8D2DBD /* ARCam.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = ARCam.mm; path = ../../../addons/ofxARKit/src/ARCam.mm; sourceTree = SOURCE_ROOT; };
 		E41D3ED613B38FB500A75A5D /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		E41D3EE513B3906D00A75A5D /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/ios/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -108,8 +116,12 @@
 		E4D8936C11527B74007E1F53 /* ofApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofApp.h; path = src/ofApp.h; sourceTree = SOURCE_ROOT; };
 		E4D8936D11527B74007E1F53 /* ofApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ofApp.mm; path = src/ofApp.mm; sourceTree = SOURCE_ROOT; };
 		E8470187C69FECA34ACE6825 /* ARObjects.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ARObjects.h; path = ../../../addons/ofxARKit/src/ARObjects.h; sourceTree = SOURCE_ROOT; };
+		EA4633A64576E59563CE1255 /* DRainy.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DRainy.h; path = src/DRainy.h; sourceTree = SOURCE_ROOT; };
 		F1FD0B255231DD44AA4B35CA /* ARCam.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ARCam.h; path = ../../../addons/ofxARKit/src/ARCam.h; sourceTree = SOURCE_ROOT; };
+		F63C79BA3EC38360C02D550C /* MyAppDelegate.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = MyAppDelegate.mm; path = src/delegates/MyAppDelegate.mm; sourceTree = SOURCE_ROOT; };
 		F9BE3DED6B2C36C40E5D4D69 /* ARSessionSetup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ARSessionSetup.h; path = ../../../addons/ofxARKit/src/ARSessionSetup.h; sourceTree = SOURCE_ROOT; };
+		FE282A9B0B19EC3B0B9AFA15 /* DFlyObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DFlyObject.h; path = src/DFlyObject.h; sourceTree = SOURCE_ROOT; };
+		FEA708BDC0E1C1E6370350D0 /* DZigLine.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DZigLine.h; path = src/DZigLine.h; sourceTree = SOURCE_ROOT; };
 		FED1B5568E444C5A17968CDE /* ARFaceTrackingBool.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ARFaceTrackingBool.h; path = ../../../addons/ofxARKit/src/ARFaceTrackingBool.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -118,7 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6E5786820ECAF7C0087645E /* ARKit.framework in Frameworks */,
+				A6687C3920FC972200DC4557 /* ARKit.framework in Frameworks */,
 				E41D421413B3A95300A75A5D /* libofxiOS_iphoneos_Debug.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
@@ -139,6 +151,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0593F71A6C41BCBCD91D9C0C /* ofx */ = {
+			isa = PBXGroup;
+			children = (
+				3FCC3CC63F1FB03FA5A6C417 /* KDTree.h */,
+			);
+			name = ofx;
+			sourceTree = "<group>";
+		};
+		06BE3FD42B9E184DA8B2B49B /* delegates */ = {
+			isa = PBXGroup;
+			children = (
+				86BAACFE0BF7EA1416376330 /* MyAppDelegate.h */,
+				F63C79BA3EC38360C02D550C /* MyAppDelegate.mm */,
+			);
+			name = delegates;
+			sourceTree = "<group>";
+		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,7 +197,7 @@
 				BB16F26B0F2B646B00518274 /* addons */,
 				BB16E9930F2B1E5900518274 /* libs */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				A6E5786620ECAF7C0087645E /* Frameworks */,
+				A6687C3720FC972200DC4557 /* Frameworks */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -192,6 +221,31 @@
 				67DFA53419F92A5E003B3434 /* Accelerate.framework */,
 			);
 			name = "core frameworks";
+			sourceTree = "<group>";
+		};
+		385A835B12A0021297521F5A /* src */ = {
+			isa = PBXGroup;
+			children = (
+				C7741F5222EA5255DD6710ED /* ofxSpatialHash.h */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		4DDDE89A215FFC6D84084F64 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				A7F935964A1EB7154C211E37 /* Delaunay */,
+			);
+			name = libs;
+			sourceTree = "<group>";
+		};
+		5A296432AD6765AD9158F813 /* ofxDelaunay */ = {
+			isa = PBXGroup;
+			children = (
+				BA7CA251A8C3541F18ECFFC2 /* src */,
+				4DDDE89A215FFC6D84084F64 /* libs */,
+			);
+			name = ofxDelaunay;
 			sourceTree = "<group>";
 		};
 		65605B10F492D4585BA50B2D /* src */ = {
@@ -221,32 +275,63 @@
 			name = local_addons;
 			sourceTree = "<group>";
 		};
-		A6E5786620ECAF7C0087645E /* Frameworks */ = {
+		6C9AF35F1A9916752055A0F3 /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				A6E5786720ECAF7C0087645E /* ARKit.framework */,
+				B40F26471D7470B269E6F4D6 /* ofxSpatialHash */,
+				CF1D40B026E188CB81FA4F13 /* nanoflann */,
+			);
+			name = libs;
+			sourceTree = "<group>";
+		};
+		6F8AB0A4B467ADD4AFCB478C /* ofxSpatialHash */ = {
+			isa = PBXGroup;
+			children = (
+				385A835B12A0021297521F5A /* src */,
+				6C9AF35F1A9916752055A0F3 /* libs */,
+			);
+			name = ofxSpatialHash;
+			sourceTree = "<group>";
+		};
+		7C1FBBCA7CAE2DFAD0F11123 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				B93E3253E66E6B282C408B7C /* nanoflann.hpp */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		A6687C3720FC972200DC4557 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A6687C3820FC972200DC4557 /* ARKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		A6E5786920ECB8990087645E /* delegates */ = {
+		A7F935964A1EB7154C211E37 /* Delaunay */ = {
 			isa = PBXGroup;
 			children = (
-				A6E5786A20ECB8990087645E /* MyAppDelegate.h */,
-				A6E5786B20ECB8990087645E /* MyAppDelegate.mm */,
+				F2BA67D6A643AE8D5667A268 /* src */,
 			);
-			path = delegates;
+			name = Delaunay;
 			sourceTree = "<group>";
 		};
-		A6E5786D20ECB8A20087645E /* viewcontrollers */ = {
+		B40F26471D7470B269E6F4D6 /* ofxSpatialHash */ = {
 			isa = PBXGroup;
 			children = (
-				A6E5786E20ECB8A20087645E /* OFAppViewController.h */,
-				A6E5786F20ECB8A20087645E /* MyAppViewController.h */,
-				A6E5787020ECB8A20087645E /* OFAppViewController.mm */,
-				A6E5787120ECB8A20087645E /* MyAppViewController.mm */,
+				E953F1F92651A00C0DC78C82 /* include */,
 			);
-			path = viewcontrollers;
+			name = ofxSpatialHash;
+			sourceTree = "<group>";
+		};
+		BA7CA251A8C3541F18ECFFC2 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				8AA89AFF4E71C7EC510642B7 /* ofxDelaunay.h */,
+				BBE3E908E4BB3468853C50ED /* ofxDelaunay.cpp */,
+			);
+			name = src;
 			sourceTree = "<group>";
 		};
 		BB16E9930F2B1E5900518274 /* libs */ = {
@@ -261,6 +346,8 @@
 			isa = PBXGroup;
 			children = (
 				2152D16385B8F9DE337E943B /* ofxARKit */,
+				5A296432AD6765AD9158F813 /* ofxDelaunay */,
+				6F8AB0A4B467ADD4AFCB478C /* ofxSpatialHash */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -286,6 +373,25 @@
 			name = core;
 			sourceTree = "<group>";
 		};
+		CF1D40B026E188CB81FA4F13 /* nanoflann */ = {
+			isa = PBXGroup;
+			children = (
+				7C1FBBCA7CAE2DFAD0F11123 /* include */,
+			);
+			name = nanoflann;
+			sourceTree = "<group>";
+		};
+		D33A4FA4AC0104064E0F7CBA /* viewcontrollers */ = {
+			isa = PBXGroup;
+			children = (
+				AFA32F15CBC34924092B5BDA /* OFAppViewController.h */,
+				39B3A8D4FD292F93C28B8AEC /* MyAppViewController.h */,
+				CDA37EEC683BC5C1A109FB2F /* OFAppViewController.mm */,
+				623C80DF40EE6BCDFCC80B51 /* MyAppViewController.mm */,
+			);
+			name = viewcontrollers;
+			sourceTree = "<group>";
+		};
 		E41D40FE13B3A0D800A75A5D /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -297,21 +403,41 @@
 		E4D8936A11527B74007E1F53 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				A6E5786D20ECB8A20087645E /* viewcontrollers */,
-				A6E5786920ECB8990087645E /* delegates */,
 				E4D8936B11527B74007E1F53 /* main.mm */,
 				E4D8936D11527B74007E1F53 /* ofApp.mm */,
 				E4D8936C11527B74007E1F53 /* ofApp.h */,
-				A6E5786520ECAECB0087645E /* DFlyObject.h */,
-				A6E5787420ECC0CB0087645E /* DFlyObject.cpp */,
-				A6E5787720EDBBB40087645E /* DPool.h */,
-				A6E5787C20EE076D0087645E /* DRecord.h */,
-				A622ADB020EE684E00AE9F4E /* DZigLine.h */,
-				A622ADB220EE899D00AE9F4E /* DRainy.h */,
-				A622ADB520EF62DC00AE9F4E /* DObject.h */,
+				DA9A7112491C40053F01C457 /* DRecord.h */,
+				1C3366001F058C50D5B9801A /* DSandLine.h */,
+				CD2C0837C7E3604DAE465BAF /* DFlyObject.cpp */,
+				0F85EAA5C2D1F37904EC6E76 /* DFlow.h */,
+				A1A23E036074B0FDF6F3662C /* DPiece.h */,
+				D33A4FA4AC0104064E0F7CBA /* viewcontrollers */,
+				EA4633A64576E59563CE1255 /* DRainy.h */,
+				C30B22DF92B8942DDA6005CC /* DObject.h */,
+				FE282A9B0B19EC3B0B9AFA15 /* DFlyObject.h */,
+				06BE3FD42B9E184DA8B2B49B /* delegates */,
+				FEA708BDC0E1C1E6370350D0 /* DZigLine.h */,
+				A6687C3A20FCFDDF00DC4557 /* DLine.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
+		};
+		E953F1F92651A00C0DC78C82 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				0593F71A6C41BCBCD91D9C0C /* ofx */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		F2BA67D6A643AE8D5667A268 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				28CD9659C1D4E430F1B9C2E4 /* Delaunay.h */,
+				1E2A7B869B0465AEBF28825D /* Delaunay.cpp */,
+			);
+			name = src;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -421,13 +547,15 @@
 			files = (
 				E4D8936E11527B74007E1F53 /* main.mm in Sources */,
 				E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */,
-				A6E5786C20ECB89A0087645E /* MyAppDelegate.mm in Sources */,
-				A6E5787520ECC0CB0087645E /* DFlyObject.cpp in Sources */,
-				A6E5787220ECB8A20087645E /* OFAppViewController.mm in Sources */,
-				A6E5787320ECB8A20087645E /* MyAppViewController.mm in Sources */,
+				CD9BBCFA0C8D9A9475BD8A8E /* DFlyObject.cpp in Sources */,
+				CB9CBC6D4EDF6466EB7BCF5B /* OFAppViewController.mm in Sources */,
+				888D698EA7C67CF20BABEDAF /* MyAppViewController.mm in Sources */,
+				A9A16B1E62191E33535D39D3 /* MyAppDelegate.mm in Sources */,
 				966DC6CFF8359AF2BCC8EAFD /* ARAnchorManager.mm in Sources */,
 				26E48FA925CB7AB40D972560 /* ARProcessor.mm in Sources */,
 				8DEE3593CFC3E0A0F3578C2D /* ARCam.mm in Sources */,
+				9102D0609CDD0B902F138C68 /* ofxDelaunay.cpp in Sources */,
+				87A34EBC0F47C29339CF1D28 /* Delaunay.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,7 +622,20 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
+					src/delegates,
+					src/viewcontrollers,
 					../../../addons/ofxARKit/src,
+					../../../addons/ofxDelaunay/libs,
+					../../../addons/ofxDelaunay/libs/Delaunay,
+					../../../addons/ofxDelaunay/libs/Delaunay/src,
+					../../../addons/ofxDelaunay/src,
+					../../../addons/ofxSpatialHash/libs,
+					../../../addons/ofxSpatialHash/libs/nanoflann,
+					../../../addons/ofxSpatialHash/libs/nanoflann/include,
+					../../../addons/ofxSpatialHash/libs/ofxSpatialHash,
+					../../../addons/ofxSpatialHash/libs/ofxSpatialHash/include,
+					../../../addons/ofxSpatialHash/libs/ofxSpatialHash/include/ofx,
+					../../../addons/ofxSpatialHash/src,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				ONLY_ACTIVE_ARCH = NO;
@@ -528,7 +669,20 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
+					src/delegates,
+					src/viewcontrollers,
 					../../../addons/ofxARKit/src,
+					../../../addons/ofxDelaunay/libs,
+					../../../addons/ofxDelaunay/libs/Delaunay,
+					../../../addons/ofxDelaunay/libs/Delaunay/src,
+					../../../addons/ofxDelaunay/src,
+					../../../addons/ofxSpatialHash/libs,
+					../../../addons/ofxSpatialHash/libs/nanoflann,
+					../../../addons/ofxSpatialHash/libs/nanoflann/include,
+					../../../addons/ofxSpatialHash/libs/ofxSpatialHash,
+					../../../addons/ofxSpatialHash/libs/ofxSpatialHash/include,
+					../../../addons/ofxSpatialHash/libs/ofxSpatialHash/include/ofx,
+					../../../addons/ofxSpatialHash/src,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				ONLY_ACTIVE_ARCH = NO;

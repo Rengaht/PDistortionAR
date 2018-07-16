@@ -11,6 +11,12 @@ ofVec3f DFlyObject::cent=ofVec3f(0);
 
 float DObject::rad=.1;
 
+float DFlow::maxForce=3;
+float DFlow::maxSpeed=20;
+float DFlow::rad=100;
+
+
+
 int main() {
     
     //  here are the most commonly used iOS window settings.

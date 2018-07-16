@@ -74,7 +74,26 @@ public:
         }
     }
     
-    
+    vector<DFlyObject*> breakdown(){
+        vector<DFlyObject*> _fly;
+        
+        int m=_mesh.getNumVertices();
+        for(int i=0;i<m-1;++i){
+//            vector<ofVec3f> line_;
+//            line_.push_back(_mesh.getVertex(i+1)-_mesh.getVertex(i));
+            ofMesh mesh_;
+            mesh_.setMode(OF_PRIMITIVE_LINES);
+            
+            for(int j=0;j<2;++j){
+                mesh_.addVertex(_mesh.getVertex(i+j)-_mesh.getVertex(i));
+                mesh_.addTexCoord(_mesh.getTexCoord(i+j));
+            }
+            
+            _fly.push_back(new DFlyObject(_mesh.getVertex(i),mesh_));
+        }
+        
+        return _fly;
+    }
 };
 
 

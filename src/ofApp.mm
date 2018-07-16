@@ -25,6 +25,22 @@ void ofApp::setup(){
     _stage_time[5]=300000;
     _stage_time[6]=330000;
     
+    _effect_time[0]=0;
+    _effect_time[1]=65047;
+    _effect_time[2]=69835;
+    _effect_time[3]=75804;
+    _effect_time[4]=79309;
+    _effect_time[5]=82121;
+    
+    _effect_time[6]=88420;
+    _effect_time[7]=91990;
+    _effect_time[8]=94718;
+    _effect_time[9]=101109;
+    _effect_time[10]=107352;
+    _effect_time[11]=113688;
+    
+    _ieffect=1;
+    
     _song=[[AVSoundPlayer alloc] init];
     [_song loadWithFile:@"music/be.wav"]; // uncompressed wav format.
 //    [vocals volume:1.0];
@@ -38,9 +54,11 @@ void ofApp::setup(){
     //font.load("fonts/mono0755.ttf", fontSize,true, false, true, 0.4, 72);
     font.load("fonts/mono0755.ttf", fontSize);
     
+    
+    ofxAccelerometer.setup();
+    
     processor = ARProcessor::create(session);
     processor->setup(true);
-    
     
     _fbo_tmp1.allocate(ofGetWidth(),ofGetHeight(),GL_RGB);
     _fbo_tmp2.allocate(ofGetWidth(),ofGetHeight(),GL_RGB);
@@ -69,13 +87,17 @@ void ofApp::setup(){
     setStage(0);
     
     _shader_threshold=0;
+    _shader_height=0;
+    
+    _screen_flow=DFlow(_shader_height);
     
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    processor->update();
+    if(_stage==0 || _stage==5) processor->updateCamera();
+    else processor->update();
     //processor->updatePlanes();
     
     _song_time=_song.positionMs;
@@ -91,51 +113,75 @@ void ofApp::update(){
     
     
     auto pts_=processor->pointCloud.getPoints(this->session.currentFrame);
+    _detect_feature.insert(_detect_feature.begin(),pts_.begin(),pts_.end());
+    _detect_feature.resize(MAX_MFEATURE);
+    
     
     if(_stage<MSTAGE-1 && _song_time>=_stage_time[_stage+1]) _stage++;
     
     switch(_stage){
         case 0:
-            _shader_height=sin(ofGetFrameNum()/500.0*TWO_PI)*.2+ofMap(_song_time,0,57000,0.1,1);
-            _shader_threshold=0;
+            _shader_threshold=ofMap(_song_time,0,_stage_time[1],0,.7);
+            _screen_flow.update(_shader_threshold,ofxAccelerometer.getForce());
             break;
         case 1: // auto add line
-            _shader_height=1.0;
-            _shader_threshold=0;
-            if(pts_.size()>0 && ofRandom(10)<1){
-                    int add_=floor(ofRandom(pts_.size()));
+            _shader_threshold=1.0;
+            if(_detect_feature.size()>0){
+            
+                if(_ieffect<MEFFECT){
+                    if(_song_time>=_effect_time[_ieffect]) _ieffect++;
+                    else break;
+                }else{
+                    if(ofRandom(10)>1) break;
+                }
+                ofLog()<<"add effect!";
+                
+                int add_=floor(ofRandom(_detect_feature.size()));
+                
+                if(_ieffect>10 && ofRandom(2)<1){
+                    _feature_object.push_back(new DRainy(_detect_feature[add_],floor(ofRandom(2000,10000))));
+                }else{
                     if(ofRandom(2)<1)
-                        _feature_object.push_back(new DZigLine(pts_[add_]));
-                    else
-                        _feature_object.push_back(new DRainy(pts_[add_],floor(ofRandom(2000,10000))));
-                    pts_.erase(pts_.begin()+add_);
+                        _feature_object.push_back(new DPiece(_detect_feature[add_]));
+                    else{
+                        auto vert_=getFeatureChain(_detect_feature[add_],floor(ofRandom(10,30)));
+                        if(vert_.size()>0) _feature_object.push_back(new DSandLine(vert_[0],-1,vert_));
+                    }
+                }
+                _detect_feature.erase(_detect_feature.begin()+add_);
+            
             }
             break;
         case 2:
-            _shader_height=1.0;
-            _shader_threshold=0;
+            _shader_threshold=1.0;
             if(_touched){
                 processor->addAnchor(ofVec3f(_touch_point.x,_touch_point.y,-1));
                 ARObject anchor=processor->anchorController->getAnchorAt(processor->anchorController->getNumAnchors()-1);
                 ofVec3f pos=anchor.modelMatrix.getTranslation();
-                _record_object->addVertex(pos,ofVec2f(_touch_point.x/ofGetWidth(),_touch_point.y/ofGetHeight()));
+                _record_object->addSegment(pos);
             }
 
             break;
         case 3:
-            _shader_threshold=abs(.5*sin(ofGetFrameNum()/30.0*TWO_PI+ofRandom(-2,2)));
+            _shader_threshold=1+abs(.5*sin(ofGetFrameNum()/30.0*TWO_PI+ofRandom(-2,2)));
+            DFlyObject::cent=processor->getCameraPosition();
+            DFlyObject::cent.z=-1;
+            for(auto& p:_fly_object){
+                p->updateFlock(_fly_object);
+            }
             break;
         case 4:
-            _shader_height=1.0;
-            _shader_threshold=abs(sin(ofGetFrameNum()/30.0*TWO_PI+ofRandom(-5,5)));
-//            DFlyObject::cent=processor->getCameraPosition();
-//            DFlyObject::cent.z=-1;
-//            for(auto& p:_feature_object){
-//                p->updateFlock(_feature_object);
-//            }
+            _shader_threshold=1+abs(sin(ofGetFrameNum()/30.0*TWO_PI+ofRandom(-5,5)));
+            DFlyObject::cent=processor->getCameraPosition();
+            DFlyObject::cent.z=-1;
+            for(auto& p:_fly_object){
+                p->updateFlock(_fly_object);
+            }
             break;
         case 5:
             _shader_height=sin(ofGetFrameNum()/500.0*TWO_PI)*.2+ofMap(_song_time,_stage_time[5],_stage_time[6],1,0);
+            _screen_flow.update(_shader_height,ofxAccelerometer.getForce());
+        
             if(ofRandom(30)<1){
                 if(_feature_object.size()>0) _feature_object.erase(_feature_object.begin());
                 if(_fly_object.size()>0) _fly_object.erase(_fly_object.begin());
@@ -153,16 +199,8 @@ void ofApp::update(){
             break;
     }
     
-    _detect_feature.insert(_detect_feature.begin(),pts_.begin(),pts_.end());
-    _detect_feature.resize(MAX_MFEATURE);
+   
   
-        
-        auto matrices = processor->getCameraMatrices();
-        ofMatrix4x4 model = ARCommon::toMat4(session.currentFrame.camera.transform);
-//        //position,matrices.cameraProjection,model * getCameraMatrices().cameraView
-    
-        
-    
    
     if(_feature_object.size()>0){
         auto it=_feature_object.end();
@@ -172,9 +210,7 @@ void ofApp::update(){
             if((*it)->dead()) _feature_object.erase(it);
         }
     }
-    
     if(_feature_object.size()>MAX_MFEATURE) _feature_object.erase(_feature_object.begin()) ;
-//    if(_static_object.size()>MAX_MSTATIC) _static_object.erase(_static_object.begin()) ;
     
     
 
@@ -187,7 +223,6 @@ void ofApp::draw(){
     ofDisableDepthTest();
     
     drawCameraView();
-    
     
     ofEnableDepthTest();
     
@@ -202,7 +237,18 @@ void ofApp::draw(){
     //_camera_view.setTextureWrap(GL_REPEAT,GL_REPEAT);
     
     _camera_view.bind();
+    
+    _shader_mapscreen.begin();
+    _shader_mapscreen.setUniformTexture("inputImageTexture", _camera_view, 0);
+    _shader_mapscreen.setUniform1f("window_width", ofGetWidth()*10.0);
+    _shader_mapscreen.setUniform1f("window_height", ofGetHeight()*2.0);
+    
     for(auto& p:_feature_object) p->draw();
+    _shader_mapscreen.end();
+    
+    
+    for(auto& p:_fly_object) p->draw();
+    
 //    for(auto& p:_static_object) p->draw();
 //    for(auto& p:_record_object) p->draw();
     _camera_view.unbind();
@@ -213,12 +259,11 @@ void ofApp::draw(){
         ofPushStyle();
         for(auto&p:_detect_feature){
             ofSetColor(255,255,0,100+150*sin(ofGetFrameNum()/10.0+p.x*1000*TWO_PI));
+//            ofSetColor(255,255,0);
             ofDrawSphere(p.x,p.y,p.z,0.001);
         }
         ofPopStyle();
     }
-    
-    
     
     
     
@@ -244,13 +289,13 @@ void ofApp::draw(){
     font.drawString("frame rate  = " + ofToString( ofGetFrameRate() ),   x, y+=p);
     //    font.drawString("screen width   = " + ofToString( ofGetWidth() ),       x, y+=p);
     //    font.drawString("screen height  = " + ofToString( ofGetHeight() ),      x, y+=p);
-    
+
     font.drawString("state       = " + ofToString(processor->camera->getTrackingState()),x, y+=p);
-    
+
     font.drawString("#feature obj= " + ofToString(_feature_object.size()),x, y+=p);
 //    font.drawString("#static obj = " + ofToString(_static_object.size()),x, y+=p);
 //    font.drawString("#record obj = " + ofToString(_record_object.size()),x, y+=p);
-    
+
     font.drawString("#point cloud= " + ofToString(processor->pointCloud.getNumFeatures()),x, y+=p);
     font.drawString("#plane      = " + ofToString(processor->anchorController->getNumPlanes()),x, y+=p);
     font.drawString("#anchor     = " + ofToString(processor->anchorController->getNumAnchors()),x, y+=p);
@@ -273,7 +318,8 @@ void ofApp::touchDown(ofTouchEventArgs & touch){
         case 1:
             break;
         case 2:
-            DRecord* rec_=new DRecord();
+            DZigLine* rec_=new DZigLine();
+//            DSandLine* rec_=new DSandLine();
             _feature_object.push_back(rec_);
             _record_object=rec_;
             break;
@@ -326,21 +372,26 @@ void ofApp::deviceOrientationChanged(int newOrientation){
 
 void ofApp::drawCameraView(){
     
-    if(_shader_height<=0){
+    
+    float ww=ofGetWidth();
+    float wh=ofGetHeight();
+    
+    
+
+    if(_shader_threshold<=0){
         processor->draw();
-        
+
     }else{
-        
-        float ww=ofGetWidth();
-        float wh=ofGetHeight();
-        
+
+       
+       
         _fbo_tmp1.begin();
         _shader_gray.begin();
         _shader_gray.setUniformTexture("inputImageTexture", _camera_view, 0);
         _camera_view.draw(0, 0, ww, wh);
         _shader_gray.end();
         _fbo_tmp1.end();
-        
+
         _fbo_tmp2.begin();
         _shader_blur.begin();
         _shader_blur.setUniformTexture("inputImageTexture", _fbo_tmp1.getTexture(), 0);
@@ -363,9 +414,9 @@ void ofApp::drawCameraView(){
 //        _camera_view.draw(0, 0, ww, wh);
 //        _shader_blur.end();
 //        _fbo_tmp2.end();
-        
+
         //    _fbo_tmp2.draw(0,0);
-        
+
         //
         //    _shader_canny.begin();
         //        //processor->draw();
@@ -377,37 +428,42 @@ void ofApp::drawCameraView(){
         //        _fbo_tmp2.draw(0, 0, ofGetWidth(), ofGetHeight());
         //
         //    _shader_canny.end();
-        
-        
-        
-        
+
+
+
+
         _fbo_tmp1.begin();
         _shader_sobel.begin();
-        //_shader_sobel.setUniformTexture("originTexture", _camera_view, 0);
+        
         _shader_sobel.setUniformTexture("inputImageTexture", _fbo_tmp2.getTexture(), 0);
         _shader_sobel.setUniform1f("window_width", ww);
         _shader_sobel.setUniform1f("window_height", wh);
-        _shader_sobel.setUniform1f("show_height", _shader_height);
         _shader_sobel.setUniform1f("show_threshold", _shader_threshold);
-        //_shader_sobel.setUniform1f("frame_distort", ofRandom(1));
+        if(_shader_threshold<1.0) _shader_sobel.setUniformMatrix4f("particlePos", _screen_flow.getParticleMat());
         
+
         _camera_view.draw(0, 0, ww,wh);
         //window_.draw();
 
         _shader_sobel.end();
         _fbo_tmp1.end();
-        
-        //        _shader_gray.begin();
-        //            _shader_gray.setUniformTexture("inputImageTexture", _fbo_tmp1.getTexture(), 0);
-        //            _fbo_tmp1.draw(0, 0, ww, wh);
-        //        _shader_gray.end();
+
         _fbo_tmp1.draw(0,0,ww,wh);
+        
+        //processor->draw();
+
+        //_screen_flow.draw();
+        
+    
+    
     }
+//
+    
     
 }
 
 void ofApp::reset(){
-    ofLog()<<"reset anchor!";
+    ofLog()<<"reset scene!";
     //    processor->anchorController->clearAnchors();
     //    processor->restartSession();
     //processor->anchorController->clearPlaneAnchors();
@@ -416,6 +472,7 @@ void ofApp::reset(){
     //[session runWithConfiguration:session.configuration options:ARSessionRunOptionResetTracking|ARSessionRunOptionRemoveExistingAnchors];
     
     _feature_object.clear();
+    _fly_object.clear();
 //    _static_object.clear();
 //    _record_object.clear();
 }
@@ -445,12 +502,77 @@ void ofApp::setStage(int set_){
     [_song positionMs:_stage_time[set_]];
     _stage=set_;
     
-    if(set_==0) reset();
+    switch(_stage){
+        case 0:
+            reset();
+            break;
+        case 1:
+            _ieffect=1;
+            break;
+        case 3:
+            _fly_object.clear();
+            for(auto& p:_feature_object){
+                vector<DFlyObject*> pt=p->breakdown();
+                _fly_object.insert(_fly_object.begin(),pt.begin(),pt.end());
+            }
+            _fly_object.resize(MAX_MFLY_OBJ);
+            _feature_object.clear();
+            ofLog()<<"break down to "<<_fly_object.size()<<" flyobjects!";
+            break;
+    }
     
+
+}
+ofVec3f ofApp::findNextInChain(ofVec3f this_,ofVec3f dir_){
+    
+//    auto it=_detect_feature.begin();
+//    float ang_=ofRandom(TWO_PI);
+//
+//    while(it!=_detect_feature.end()){
+//
+//        if(abs(it->angleRad(this_))<HALF_PI/8 && it->distance(this_)<DObject::rad){
+//
+//            _detect_feature.erase(it);
+//            return *it;
+//
+//        }else
+//            it++;
+//
+//    }
+//    return ofVec3f(0);
+    
+   
+    dir_.rotate(ofRandom(-60,60),ofVec3f(0,1,0));
+    return this_+dir_;
 
 }
 
 
+vector<ofVec3f> ofApp::getFeatureChain(ofVec3f loc_,int len_){
+    
+    vector<ofVec3f> chain_;
+    if(_detect_feature.size()<1) return chain_;
+    
+    ofVec3f last_=loc_;
+    chain_.push_back(last_);
+    
+    
+    ofVec3f dir_(DObject::rad,0,0);
+    dir_.rotate(ofRandom(-60,60),ofVec3f(0,1,0));
+    
+    for(int i=0;i<len_-1;++i){
+        
+        auto p=findNextInChain(last_,dir_);
+        if(p==ofVec3f(0)) break;
+        
+        chain_.push_back(p);
+        last_=p;
+    }
+    ofLog()<<"find "<<len_<<" chian of "<<chain_.size();
+    
+    return chain_;
+    
+}
 
 //void ofApp::toggleShader(){
 //    _use_shader=!_use_shader;
