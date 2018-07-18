@@ -89,6 +89,7 @@
 		A1A23E036074B0FDF6F3662C /* DPiece.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DPiece.h; path = src/DPiece.h; sourceTree = SOURCE_ROOT; };
 		A6687C3820FC972200DC4557 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
 		A6687C3A20FCFDDF00DC4557 /* DLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLine.h; sourceTree = "<group>"; };
+		A6687C3B20FD9B3300DC4557 /* DPieceEdge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPieceEdge.h; sourceTree = "<group>"; };
 		AFA32F15CBC34924092B5BDA /* OFAppViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = OFAppViewController.h; path = src/viewcontrollers/OFAppViewController.h; sourceTree = SOURCE_ROOT; };
 		B93E3253E66E6B282C408B7C /* nanoflann.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = nanoflann.hpp; path = ../../../addons/ofxSpatialHash/libs/nanoflann/include/nanoflann.hpp; sourceTree = SOURCE_ROOT; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -418,6 +419,7 @@
 				06BE3FD42B9E184DA8B2B49B /* delegates */,
 				FEA708BDC0E1C1E6370350D0 /* DZigLine.h */,
 				A6687C3A20FCFDDF00DC4557 /* DLine.h */,
+				A6687C3B20FD9B3300DC4557 /* DPieceEdge.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;

@@ -24,12 +24,12 @@ DFlyObject::DFlyObject(ofVec3f loc_,ofMesh mesh_){
 void DFlyObject::draw(){
     
     ofPushStyle();
-    ofSetColor(255,255*sin(phi));
-    ofSetLineWidth(5);
+//    ofSetColor(255,255*sin(phi));
+//    ofSetLineWidth(5);
     
     ofPushMatrix();
     ofTranslate(loc);
-        //ofDrawSphere(0,0,0,rad);
+  //      ofDrawSphere(0,0,0,rad);
 //    ofBeginShape();
 //    ofVertex(0,0,0);
 //    for(auto& p:_vertex) ofVertex(p);
@@ -49,8 +49,9 @@ void DFlyObject::updateFlock(vector<DFlyObject*>& others){
     vel+=acc;
     vel.limit(maxSpeed);
     loc+=vel;
-    
+
     acc*=0;
+
     
 }
 
@@ -73,7 +74,7 @@ void DFlyObject::flock(vector<DFlyObject*>& others){
     //center
     ofVec3f cent_desired=cent-loc;
     ofVec3f cent_steer=cent_desired-vel;
-    cent_steer.limit(maxForce*1.2);
+    cent_steer.limit(maxForce*2);
     applyForce(cent_steer);
     
 }

@@ -13,14 +13,19 @@
 #include "DZigLine.h"
 #include "DRainy.h"
 #include "DSandLine.h"
+
 #include "DPiece.h"
+#include "DPieceEdge.h"
+
 
 
 #define MSTAGE 6
 #define MEFFECT 11
 #define MAX_MSTATIC 10
-#define MAX_MFEATURE 60
+#define MAX_MFEATURE 20
 #define MAX_MFLY_OBJ 60
+#define MTOUCH_SMOOTH 6
+
 
 class ofApp : public ofxiOSApp {
 	
@@ -103,6 +108,21 @@ class ofApp : public ofxiOSApp {
         ofVec3f findNextInChain(ofVec3f this_,ofVec3f dir_);
         vector<ofVec3f> getFeatureChain(ofVec3f loc_,int len_);
     
+        void addARPiece(ofVec3f loc_);
+        void addARLine(ofVec3f loc_);
+        void addARParticle(ofVec3f loc_);
+    
+        void addFlyObject();
+        void updateFlyCenter();
+    
+        ofMatrix4x4 _camera_projection, _camera_viewmatrix;
+        ofVec3f arScreenToWorld(ofVec3f screen_pos_);
+        
+    
+        vector<ofVec2f> _prev_touch;
+        void addTouchTrajectory();
+    
+    
     
         // ====== ui ======//
         void resetButton();
@@ -112,6 +132,7 @@ class ofApp : public ofxiOSApp {
         bool _touched;
         ofVec2f _touch_point;
     
+        string _hint;
     
 };
 

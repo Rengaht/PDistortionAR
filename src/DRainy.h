@@ -21,7 +21,7 @@ public:
         generate();
     }
     void generate(){
-        int m=floor(ofRandom(30,50));
+        int m=floor(ofRandom(10,30));
         for(int i=0;i<m;++i) _pt.push_back(ofVec3f(ofRandom(rad),ofRandom(rad*2),ofRandom(rad)));
     }
     

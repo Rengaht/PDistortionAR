@@ -18,17 +18,22 @@ public:
     int _last_time;
     bool _forever;
     
+    bool _shader_fill;
+    
+    
     DObject(ofVec3f pos):DObject(pos,-1){}
     DObject(ofVec3f pos,int last_){
         _loc=pos;
         _last_time=last_;
         _forever=(_last_time==-1);
+        _shader_fill=false;
     }
     virtual void draw(){}
     virtual void update(int dt){
         if(_last_time>0) _last_time-=dt;
     }
     bool dead(){
+       // ofLog()<<"dead!";
         return !_forever && _last_time<0;
     }
     

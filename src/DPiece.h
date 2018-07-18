@@ -25,10 +25,12 @@ public:
         _texture_pos=ofVec2f(ofRandom(1),ofRandom(1));
 //        _texture_pos=ofVec2f(.5,.5);
         _phi=ofRandom(360);
-        _wid=rad*ofRandom(.2,.5);
+        _wid=rad*ofRandom(.5,.8);
         
-        _start_pos=rad*2;
-        _vel=-_start_pos/ofRandom(200,800);
+        _start_pos=_wid*ofRandom(10,20);
+        _vel=-_start_pos/ofRandom(200,400);
+        
+        _shader_fill=true;
         
         generate();
     }
@@ -42,7 +44,7 @@ public:
         
 //        float start_=ofRandom(30);
         float ang_=0;//start_;
-        float trad_=min(1-_texture_pos.x,_texture_pos.x)*_wid;
+        float trad_=min(1-_texture_pos.x,_texture_pos.x)/20.0;
         
         while(ang_<=360){
             ofVec3f p(1,0,0);
@@ -98,8 +100,27 @@ public:
     vector<DFlyObject*> breakdown(){
         vector<DFlyObject*> _fly;
         
-       _fly.push_back(new DFlyObject(_loc,_mesh));
-
+        int m=_mesh.getNumVertices();
+        
+        for(int i=1;i<m-1;i++){
+            ofMesh mesh_;
+            mesh_.setMode(OF_PRIMITIVE_TRIANGLES);
+            
+            ofVec3f loc=_mesh.getVertex(0);
+            
+            mesh_.addVertex(_mesh.getVertex(0)-loc);
+            mesh_.addVertex(_mesh.getVertex(i)-loc);
+            mesh_.addVertex(_mesh.getVertex(i+1)-loc);
+            
+            mesh_.addTexCoord(_mesh.getTexCoord(0));
+            mesh_.addTexCoord(_mesh.getTexCoord(i));
+            mesh_.addTexCoord(_mesh.getTexCoord(i+1));
+            
+            
+            _fly.push_back(new DFlyObject(_loc,mesh_));
+            
+        }
+      
         return _fly;
     }
 };
