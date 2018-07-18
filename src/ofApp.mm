@@ -286,9 +286,6 @@ void ofApp::addFlyObject(){
 
 ofVec3f ofApp::arScreenToWorld(ofVec3f screen_pos){
     
-//    auto cam_matrix=processor->getCameraMatrices();
-//    ofMatrix4x4 model = ARCommon::toMat4(session.currentFrame.camera.transform);
-//    ofVec4f pos = ARCommon::screenToWorld(screen_pos,cam_matrix.cameraProjection,model*cam_matrix.cameraView);
     ofVec4f pos = ARCommon::screenToWorld(screen_pos,_camera_projection,_camera_viewmatrix);
     
     // build matrix for the anchor
@@ -303,9 +300,19 @@ ofVec3f ofApp::arScreenToWorld(ofVec3f screen_pos){
 }
 void ofApp::updateFlyCenter(){
     
-    float flyz_=-abs(sin(ofGetFrameNum()/120.0))*5;
-    DFlyObject::cent=arScreenToWorld(ofVec3f(ofGetWidth()/2,ofGetHeight()/2,flyz_));
-
+    float flyz_=-1+sin(ofGetFrameNum()/120.0)*2;
+    ofVec3f center_=arScreenToWorld(ofVec3f(ofGetWidth()/2,ofGetHeight()/2,flyz_));
+    ofVec3f camera_pos=processor->getCameraPosition();
+    
+    ofVec3f dir_=center_-camera_pos;
+    dir_.rotate(90*sin(ofGetFrameNum()/50.0), ofVec3f(0,0,1));
+    
+    ofVec3f vel_=(camera_pos+dir_)-DFlyObject::cent;
+    vel_.normalize();
+    vel_*=DFlyObject::maxForce/2.0;
+    
+    DFlyObject::cent+=vel_;
+    
 }
 
 void ofApp::addTouchTrajectory(){
@@ -412,7 +419,8 @@ void ofApp::draw(){
     if(processor->camera->getTrackingState()!=2){
       _hint="!!! bad tracking state !!!";
     }else{
-        _hint="////// "+_hint+" //////";
+        if(ofGetFrameNum()%120<60) _hint="////// "+_hint+" //////";
+        else _hint="\\\\\\\\\\\\ "+_hint+" \\\\\\\\\\\\";
     }
     ofRectangle rec_=font.getStringBoundingBox(_hint,0,0);
     font.drawString(_hint,ofGetWidth()/2-rec_.width/2, ofGetHeight()/2-rec_.height/2);

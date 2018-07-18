@@ -31,6 +31,10 @@ public:
     float _wid;
     int _vertex_length;
     
+    float _dest_length;
+    
+    vector<ofVec3f> _record_vertex;
+    
     DZigLine():DZigLine(ofVec3f(0)){}
     DZigLine(ofVec3f loc_):DZigLine(loc_,-1,vector<ofVec3f>(1,loc_)){}
     DZigLine(ofVec3f loc_,int last_,vector<ofVec3f> vertex_):DObject(loc_,last_){
@@ -50,6 +54,7 @@ public:
         
         //if(vertex_.size()>1) generateMesh(vertex_);
         
+        _dest_length=floor(ofRandom(30,150));
         
     }
     void generateMesh(vector<ofVec3f> vertex_){
@@ -68,6 +73,13 @@ public:
 
     void addSegment(ofVec3f vert_){
         
+        int m=_mesh.getNumVertices();
+        if(m>_dest_length){
+            ofLog()<<"exceed vertex size! "<<m<<" "<<_dest_length;
+            return;
+            
+        }
+        
         //float r=DObject::rad*ofRandom(.1,.8);
         
         if(_mesh.getNumVertices()<1){
@@ -85,6 +97,7 @@ public:
         
         _last_dir=next_;
         _last_vertex=vert_;
+        
     }
     
     virtual void expandMesh(ofVec3f next_,ofVec3f vert_){
@@ -93,8 +106,9 @@ public:
         ofVec3f toTheLeft=next_.getRotated(90, ofVec3f(0, 1, 1));
         ofVec3f toTheRight=next_.getRotated(-90, ofVec3f(0, 1, 1));
         
-        _mesh.addVertex(_last_vertex+toTheLeft*_wid);
-        _mesh.addVertex(_last_vertex+toTheRight*_wid);
+        float twid_=_wid*(1-m/_dest_length);
+        _mesh.addVertex(_last_vertex+toTheLeft*twid_);
+        _mesh.addVertex(_last_vertex+toTheRight*twid_);
         
 //                ofColor color_(ofRandom(100,255),ofRandom(50,255),ofRandom(50,150));
 //                _mesh.addColor(color_);

@@ -14,11 +14,11 @@
 
 class DSandLine:public DZigLine{
     
-    int _dest_length;
-    float _cur_length;
-    float _vel;
-    int _interval;
-    int _itime;
+//    int _dest_length;
+//    float _cur_length;
+//    float _vel;
+//    int _interval;
+//    int _itime;
     
     vector<ofVec3f> _vertex;
     
@@ -36,27 +36,31 @@ public:
         //if(vertex_.size()>1) generateMesh(vertex_);
         _vertex=vertex_;
         
-        _dest_length=_vertex.size();
-        _cur_length=0;
+//        _dest_length=_vertex.size();
+//        _cur_length=0;
         _last_vertex=_vertex[0];
         
-        float time_=floor(ofRandom(80,150));
-        _vel=(float)_dest_length/(float)time_;
+//        float time_=floor(ofRandom(80,150));
+//        _vel=(float)_dest_length/(float)time_;
+//
+//        _interval=_last_time/time_;
+//        _itime=0;
         
-        _interval=_last_time/time_;
-        _itime=0;
-        
+        _dest_length=floor(ofRandom(100,200))*MSAND_REPEAT;
+        ofLog()<<"_dest_length= "<<_dest_length;
         //ofLog()<<"_dest_length= "<<_dest_length<<" last= "<<_last_time<<" time= "<<time_<<"  vel= "<<_vel<<" _interval= "<<_interval;
 //        _shader_fill=true;
     }
     
     void expandMesh(ofVec3f dir_,ofVec3f next_){
         
-        float len=next_.distance(_last_vertex);
+        //float len=next_.distance(_last_vertex);
         
         ofVec3f toTheLeft=dir_.getRotated(90, ofVec3f(0, 1, 1));
         toTheLeft.normalize();
-
+    
+        
+        //float twid_=_wid*(1-_mesh.getNumVertices()/_dest_length);
         
         for(int j=0;j<MSAND_REPEAT;++j){
         
