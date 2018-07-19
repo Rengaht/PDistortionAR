@@ -21,9 +21,8 @@
 
 #define MSTAGE 6
 #define MEFFECT 11
-#define MAX_MSTATIC 10
 #define MAX_MFEATURE 20
-#define MAX_MFLY_OBJ 60
+#define MAX_MFLY_OBJ 40
 #define MTOUCH_SMOOTH 6
 
 
@@ -82,8 +81,9 @@ class ofApp : public ofxiOSApp {
         ofShader _shader_sobel;
         ofFbo _fbo_tmp1,_fbo_tmp2;
     
-        float _shader_height;
+        float _sobel_threshold;
         float _shader_threshold;
+    
     
         ofTexture _camera_view;
     
@@ -93,20 +93,19 @@ class ofApp : public ofxiOSApp {
     
     
         // ====== ar object ======//
-        vector<DObject*> _feature_object;
-        //vector<DRecord*> _record_object;
-        DZigLine* _record_object;
+        list<shared_ptr<DObject>> _feature_object;
+        shared_ptr<DObject> _record_object;
     
         //vector<DStatic*> _static_object;
     
-        vector<DFlyObject*> _fly_object;
+        list<shared_ptr<DFlyObject>> _fly_object;
     
         ofShader _shader_mapscreen;
     
-        vector<ofVec3f> _detect_feature;
+        list<ofVec3f> _detect_feature;
     
         ofVec3f findNextInChain(ofVec3f this_,ofVec3f dir_);
-        vector<ofVec3f> getFeatureChain(ofVec3f loc_,int len_);
+        list<ofVec3f> getFeatureChain(ofVec3f loc_,int len_);
     
         void addARPiece(ofVec3f loc_);
         void addARLine(ofVec3f loc_);

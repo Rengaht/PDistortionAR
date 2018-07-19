@@ -23,6 +23,7 @@ uniform mat4 particlePos;
 //uniform vec2 force_vector;
 
 uniform float show_threshold;
+uniform float sobel_threshold;
 
 varying vec2 texCoord;
 
@@ -152,7 +153,7 @@ void main(){
     normalizedDirection = (normalizedDirection + 1.0) * 0.5; // Place -1.0 - 1.0 within 0 - 1.0
 
     //gl_FragColor = vec4(gradientMagnitude, normalizedDirection.x, normalizedDirection.y, 1.0);
-    if(gradientMagnitude>.5){
+    if(gradientMagnitude>sobel_threshold){
 //          gl_FragColor=vec4(0,0,0,1.0);
         gl_FragColor=mix(vec4(vec3(gradientMagnitude),1.0),texture2D(Sampler,textureCoordinate),show_threshold/2.0);
     }else{

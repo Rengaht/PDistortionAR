@@ -13,7 +13,7 @@
 
 class DRainy:public DObject{
 
-    vector<ofVec3f> _pt;
+    list<ofVec3f> _pt;
     float _vel;
 public:
     DRainy(ofVec3f pos,int last_):DObject(pos,last_){
@@ -21,8 +21,8 @@ public:
         generate();
     }
     void generate(){
-        int m=floor(ofRandom(10,30));
-        for(int i=0;i<m;++i) _pt.push_back(ofVec3f(ofRandom(rad),ofRandom(rad*2),ofRandom(rad)));
+        int m=floor(ofRandom(10,20));
+        for(int i=0;i<m;++i) _pt.push_back(ofVec3f(ofRandom(rad),ofRandom(rad*3),ofRandom(rad)));
     }
     
     void draw(){
@@ -37,7 +37,7 @@ public:
         ofSetColor(255);
         ofNoFill();
         
-        for(auto& a:_pt) ofDrawLine(a.x,a.y,a.z,a.x,a.y+_vel*ofNoise(a.y,a.z)*.3,a.z);
+        for(auto& a:_pt) ofDrawLine(a.x,a.y,a.z,a.x,a.y+_vel*.3,a.z);
         
         ofPopMatrix();
         
@@ -48,7 +48,7 @@ public:
         
         for(auto& a:_pt){
             a.y-=_vel*ofNoise(a.x,a.z);
-            if(a.y<0) a.y=ofNoise(a.z*a.x)*rad*2;
+            if(a.y<0) a.y=ofNoise(a.z*a.x)*rad*3;
         }
     }
     

@@ -19,7 +19,7 @@ struct DFlowParticle{
 
 class DFlow{
     
-    vector<DFlowParticle> _particle;
+    list<DFlowParticle> _particle;
     void generateParticle(int count_){
         for(int i=0;i<count_;++i){
             DFlowParticle p_;
@@ -46,7 +46,7 @@ public:
         _flow_height=hei_;
     }
     
-    ofVec2f separate(DFlowParticle& p,vector<DFlowParticle>& others){
+    ofVec2f separate(DFlowParticle& p,list<DFlowParticle>& others){
         
         float desired_separataion=rad*2;
         ofVec2f sum(0);
@@ -119,7 +119,8 @@ public:
         
 //        float curr=ofMap(_flow_height,0,1,_bound.x/4,_bound.x/3);
         ofMatrix4x4 mat;
-        for(int i=0;i<MParticle;++i){
+        int i=0;
+        for(auto it:_particle){
             
             int ix=floor(i*2/4);
             int iy=floor((i*2)%4);
@@ -128,9 +129,10 @@ public:
             
             //cout<<ix<<" , "<<iy<<"  "<<jx<<" , "<<jy<<endl;
             
-            mat(ix,iy)=_particle[i].pos.x;
-            mat(jx,jy)=_particle[i].pos.y;
+            mat(ix,iy)=it.pos.x;
+            mat(jx,jy)=it.pos.y;
             
+            i++;
         }
         //mat(3,2)=curr;
         return mat;

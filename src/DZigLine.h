@@ -36,8 +36,8 @@ public:
     vector<ofVec3f> _record_vertex;
     
     DZigLine():DZigLine(ofVec3f(0)){}
-    DZigLine(ofVec3f loc_):DZigLine(loc_,-1,vector<ofVec3f>(1,loc_)){}
-    DZigLine(ofVec3f loc_,int last_,vector<ofVec3f> vertex_):DObject(loc_,last_){
+    DZigLine(ofVec3f loc_):DZigLine(loc_,-1,list<ofVec3f>(1,loc_)){}
+    DZigLine(ofVec3f loc_,int last_,list<ofVec3f> vertex_):DObject(loc_,last_){
         
         
         _texture_pos=ofRandom(1);
@@ -57,27 +57,27 @@ public:
         _dest_length=floor(ofRandom(30,150));
         
     }
-    void generateMesh(vector<ofVec3f> vertex_){
+    void generateMesh(list<ofVec3f> vertex_){
         
         _vertex_length=vertex_.size();
 //        _loc=vertex_[0];
 //
 //        _last_vertex=ofVec3f(0);
         
-        for(int i=0;i<_vertex_length;++i){
-            addSegment(vertex_[i]);
+        
+        for(auto it:vertex_){
+            addSegment(it);
             
         }
         
     }
 
-    void addSegment(ofVec3f vert_){
+    virtual void addSegment(ofVec3f vert_){
         
         int m=_mesh.getNumVertices();
         if(m>_dest_length){
             ofLog()<<"exceed vertex size! "<<m<<" "<<_dest_length;
             return;
-            
         }
         
         //float r=DObject::rad*ofRandom(.1,.8);
@@ -85,7 +85,7 @@ public:
         if(_mesh.getNumVertices()<1){
             _loc=vert_;
             _last_vertex=ofVec3f(0);
-//            return;
+            //return;
         }
         
         vert_-=_loc;
@@ -145,35 +145,39 @@ public:
         
     }
     
-    virtual void update(int dt_){
-        
-        DObject::update(dt_);
-        
-    }
+//    virtual void update(int dt_){
+//        
+//        DObject::update(dt_);
+//        
+//    }
     
-    vector<DFlyObject*> breakdown(){
-        vector<DFlyObject*> _fly;
+    list<shared_ptr<DFlyObject>> breakdown(){
+        list<shared_ptr<DFlyObject>> _fly;
         
         int m=_mesh.getNumVertices();
+        if(m<1) return _fly;
         
-        for(int i=0;i<m-1;){
+        ofMesh mesh_;
+        mesh_.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
+        
+        int add_=floor(ofRandom(.2,.5)*m)/4;
+        int i=0;
+        while(i<add_){
 //            vector<ofVec3f> line_;
 //            line_.push_back(_mesh.getVertex(i+1));
-            ofMesh mesh_;
-            mesh_.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
-            int k=ofRandom(1,3)*2;
             
             ofVec3f loc=_mesh.getVertex(i);
             
-            
-            for(int j=0;j<k;++j){
-                mesh_.addVertex(_mesh.getVertex(i+j)-loc);
-                mesh_.addTexCoord(_mesh.getTexCoord(i+j)-loc);
+            for(int j=0;j<4;++j){
+                mesh_.addVertex(_mesh.getVertex(j)-loc);
+                mesh_.addTexCoord(_mesh.getTexCoord(j)-loc);
+                
+                _mesh.removeVertex(j);
             }
-            _fly.push_back(new DFlyObject(_loc,mesh_));
             
-            i+=k;
+            i++;
         }
+        _fly.push_back(shared_ptr<DFlyObject>(new DFlyObject(_loc,mesh_)));
         
         return _fly;
     }

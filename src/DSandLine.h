@@ -20,12 +20,12 @@ class DSandLine:public DZigLine{
 //    int _interval;
 //    int _itime;
     
-    vector<ofVec3f> _vertex;
+//    list<ofVec3f> _vertex;
     
 public:
     
-    DSandLine():DSandLine(ofVec3f(0),-1,vector<ofVec3f>(1,ofVec3f(0))){}
-    DSandLine(ofVec3f loc_,int last_,vector<ofVec3f> vertex_):DZigLine(loc_,last_,vertex_){
+    DSandLine():DSandLine(ofVec3f(0),-1,list<ofVec3f>(1,ofVec3f(0))){}
+    DSandLine(ofVec3f loc_,int last_,list<ofVec3f> vertex_):DZigLine(loc_,last_,vertex_){
         
         
         _wid=ofRandom(.2,.3)*rad;
@@ -34,11 +34,11 @@ public:
         _mesh.setMode(OF_PRIMITIVE_LINES);
        
         //if(vertex_.size()>1) generateMesh(vertex_);
-        _vertex=vertex_;
+        //_vertex=vertex_;
         
 //        _dest_length=_vertex.size();
 //        _cur_length=0;
-        _last_vertex=_vertex[0];
+        _last_vertex=*vertex_.begin();
         
 //        float time_=floor(ofRandom(80,150));
 //        _vel=(float)_dest_length/(float)time_;
@@ -67,7 +67,7 @@ public:
             ofVec3f s_=_last_vertex+toTheLeft*ofRandom(-2,2)*_wid;
 
             _mesh.addVertex(s_);
-            _mesh.addVertex(s_+toTheLeft*_wid);
+            _mesh.addVertex(s_+toTheLeft*_wid/3.0);
             
             
 //            ofColor color_(ofRandom(100,255),ofRandom(50,255),ofRandom(50,150));
@@ -108,7 +108,7 @@ public:
         
         
         
-        ofSetLineWidth(5);
+        //ofSetLineWidth(5);
         ofDisableArbTex();
         
         ofPushMatrix();
@@ -123,52 +123,57 @@ public:
         
     }
     
-    void update(int dt_){
-        
-        DObject::update(dt_);
-        
-//        _itime+=dt_;
-//        if(_itime<_interval) return;
-//
-//        _cur_length+=_vel;
-//        _itime=0;
-//
-//        int i_=floor(_cur_length);
-//
-//        if(i_<_dest_length){
-//            ofVec3f next_=_vertex[i_].interpolate(_vertex[i_+1],_cur_length-i_);
-//            ofVec3f dir_=_vertex[i_+1]-_vertex[i_];
-//            dir_.normalize();
-//
-//            expandMesh(dir_,next_);
-//        }else{
-//            _last_time=-1;
-//        }
-    }
+//    void update(int dt_){
+//        
+//        DObject::update(dt_);
+//        
+////        _itime+=dt_;
+////        if(_itime<_interval) return;
+////
+////        _cur_length+=_vel;
+////        _itime=0;
+////
+////        int i_=floor(_cur_length);
+////
+////        if(i_<_dest_length){
+////            ofVec3f next_=_vertex[i_].interpolate(_vertex[i_+1],_cur_length-i_);
+////            ofVec3f dir_=_vertex[i_+1]-_vertex[i_];
+////            dir_.normalize();
+////
+////            expandMesh(dir_,next_);
+////        }else{
+////            _last_time=-1;
+////        }
+//    }
     
-    vector<DFlyObject*> breakdown(){
-        vector<DFlyObject*> _fly;
+    list<shared_ptr<DFlyObject>> breakdown(){
+        list<shared_ptr<DFlyObject>> _fly;
         
         int m=_mesh.getNumVertices();
+        if(m<2) return _fly;
         
-        for(int i=0;i<m;i+=2){
-            
+        int add_=floor(ofRandom(.2,.5)*m/2);
+        int i=0;
+        while(i<add_){
             ofMesh mesh_;
             mesh_.setMode(OF_PRIMITIVE_LINES);
             
-            ofVec3f loc=_mesh.getVertex(i);
+            ofVec3f loc=_mesh.getVertex(0);
             
             for(int j=0;j<2;++j){
-                mesh_.addVertex(_mesh.getVertex(i+j)-loc);
-                mesh_.addTexCoord(_mesh.getTexCoord(i+j)-loc);
+                mesh_.addVertex(_mesh.getVertex(j)-loc);
+                mesh_.addTexCoord(_mesh.getTexCoord(j)-loc);
+                
+                _mesh.removeVertex(j);
             }
             
-            _fly.push_back(new DFlyObject(_loc,mesh_));
-
+            _fly.push_back(shared_ptr<DFlyObject>(new DFlyObject(_loc,mesh_)));
+            i++;
         }
         
         return _fly;
     }
+    
     
 };
 

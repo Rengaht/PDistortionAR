@@ -74,8 +74,8 @@ public:
         }
     }
     
-    vector<DFlyObject*> breakdown(){
-        vector<DFlyObject*> _fly;
+    list<DFlyObject*> breakdown(){
+        list<DFlyObject*> _fly;
         
         int m=_mesh.getNumVertices();
         for(int i=0;i<m-1;++i){

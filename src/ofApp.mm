@@ -72,7 +72,6 @@ void ofApp::setup(){
     
     
     float s=ofGetWidth()/10000.0;
-    
     DFlyObject::maxForce=.2*s;
     DFlyObject::maxSpeed=8*s;
     DFlyObject::rad=1.0*s;
@@ -87,9 +86,9 @@ void ofApp::setup(){
     setStage(0);
     
     _shader_threshold=0;
-    _shader_height=0;
+    _sobel_threshold=.5;
     
-    _screen_flow=DFlow(_shader_height);
+    _screen_flow=DFlow(_shader_threshold);
     
 }
 
@@ -117,8 +116,11 @@ void ofApp::update(){
     
     
     auto pts_=processor->pointCloud.getPoints(this->session.currentFrame);
+    random_shuffle(pts_.begin(), pts_.end());
+    
     _detect_feature.insert(_detect_feature.begin(),pts_.begin(),pts_.end());
-    _detect_feature.resize(MAX_MFEATURE);
+    if(_detect_feature.size()>MAX_MFEATURE) _detect_feature.resize(MAX_MFEATURE);
+    
     
     
     if(_stage<MSTAGE-1 && _song_time>=_stage_time[_stage+1]) _stage++;
@@ -132,76 +134,80 @@ void ofApp::update(){
         case 1: // auto add line
             _hint="WATCH";
             _shader_threshold=1.0;
+            _sobel_threshold=.5;
             if(_detect_feature.size()>0){
-            
+
                 if(_ieffect<MEFFECT){
                     if(_song_time>=_effect_time[_ieffect]) _ieffect++;
                     else break;
                 }else{
-                    if(ofRandom(10)>1) break;
+                    if(ofRandom(20)>1) break;
                 }
                 ofLog()<<"add effect!";
-                
-                int add_=floor(ofRandom(_detect_feature.size()));
-                
+
+//                int add_=floor(ofRandom(_detect_feature.size()));
+
                 if(_ieffect>10 && ofRandom(2)<1){
-                    for(int i=0;i<ofNoise(_ieffect)*5;++i) addARParticle(_detect_feature[add_]);
+                    for(int i=0;i<ofNoise(_ieffect)*5;++i) addARParticle(*_detect_feature.begin());
                 }else{
-                        addARPiece(_detect_feature[add_]);
+                        addARPiece(*_detect_feature.begin());
                 }
-                _detect_feature.erase(_detect_feature.begin()+add_);
-            
+                _detect_feature.pop_front();
+
             }
             break;
         case 2:
             _hint="DRAW";
+            _sobel_threshold=.5;
             _shader_threshold=1.0;
             if(_touched){
                 addTouchTrajectory();
-                break;
+            }else{
+                if(ofRandom(30)<1 && _detect_feature.size()>0){
+                    //int add_=floor(ofRandom(_detect_feature.size()));
+                    addARPiece(*_detect_feature.begin());
+                    _detect_feature.pop_front();
+                }
             }
-            if(ofRandom(30)<1 && _detect_feature.size()>0){
-                int add_=floor(ofRandom(_detect_feature.size()));
-                addARPiece(_detect_feature[add_]);
-                _detect_feature.erase(_detect_feature.begin()+add_);
-            }
-
             break;
         case 3:
             _hint="DRAW & FOLLOW";
             if(_touched){
                 addTouchTrajectory();
-                break;
+            }else{
+                if(ofRandom(30)<1){
+                    addFlyObject();
+                }
             }
-            if(ofRandom(30)<1){
-                addFlyObject();
-            }
-            
+
             _shader_threshold=1+abs(.5*sin(ofGetFrameNum()/30.0*TWO_PI+ofRandom(-2,2)));
+            _sobel_threshold=.5;
             updateFlyCenter();
-            
+
             for(auto& p:_fly_object){
                 p->updateFlock(_fly_object);
             }
             break;
         case 4:
             _hint="DRAW & FOLLOW";
+            _shader_threshold=1+abs(sin(ofGetFrameNum()/30.0*TWO_PI+ofRandom(-5,5)));
+            _sobel_threshold=.8-.6*abs(sin(ofGetFrameNum()/10.0*TWO_PI+ofRandom(-5,5)));
             if(_touched){
                 addTouchTrajectory();
-                break;
-            }
-            if(ofRandom(10)<1){
-                if(ofRandom(5)>1) addFlyObject();
-                else{
-                    int add_=floor(ofRandom(_detect_feature.size()));
-                    addARPiece(_detect_feature[add_]);
-                    _detect_feature.erase(_detect_feature.begin()+add_);
+               
+            }else{
+                if(ofRandom(5)<1){
+                    if(ofRandom(50)>1) addFlyObject();
+                    else{
+    //                    int add_=floor(ofRandom(_detect_feature.size()));
+                        addARPiece(*_detect_feature.begin());
+                        _detect_feature.pop_front();
+                    }
                 }
             }
-            
-            _shader_threshold=1+abs(sin(ofGetFrameNum()/30.0*TWO_PI+ofRandom(-5,5)));
+
             updateFlyCenter();
-            
+
             for(auto& p:_fly_object){
                 p->updateFlock(_fly_object);
             }
@@ -211,15 +217,25 @@ void ofApp::update(){
             
             _shader_threshold=(_song_time==0)?0:ofMap(_song_time,_stage_time[5],_stage_time[6],.8,0);
             _screen_flow.update(_shader_threshold,ofxAccelerometer.getForce());
+            _sobel_threshold=.5;
             
-            if(ofRandom(20)<1){
-                if(_feature_object.size()>0) _feature_object.erase(_feature_object.begin());
-                if(_fly_object.size()>0) _fly_object.erase(_fly_object.begin());
+            if(ofRandom(10)<1){
+                if(_feature_object.size()>0){
+                 // delete _feature_object[0];
+                  _feature_object.pop_front();
+                }
+                if(_fly_object.size()>0){
+                   // delete _fly_object[0];
+                    _fly_object.pop_front();
+                }
 //                if(_static_object.size()>0) _static_object.erase(_static_object.begin());
 //                if(_record_object.size()>0) _record_object.erase(_record_object.begin());
             }
+            for(auto& p:_fly_object){
+                p->updateFlock(_fly_object);
+            }
             if(_song_time==0){
-              _shader_height=0;
+              _shader_threshold=0;
                 _feature_object.clear();
                 _fly_object.clear();
 //                _static_object.clear();
@@ -232,54 +248,69 @@ void ofApp::update(){
    
   
    
-    if(_feature_object.size()>0){
-        auto it=_feature_object.end();
-        it--;
-        for(;it>=_feature_object.begin();it--){
-            (*it)->update(_dmillis);
-            if((*it)->dead()) _feature_object.erase(it);
-        }
-    }
-    if(_feature_object.size()>MAX_MFEATURE) _feature_object.erase(_feature_object.begin()) ;
-    
-    
+    for(auto& it:_feature_object) it->update(_dmillis);
+    _feature_object.remove_if([](shared_ptr<DObject> obj){return obj->dead();});
 
+    //if(_feature_object.size()>MAX_MFEATURE) _feature_object.resize(MAX_MFEATURE);
+    while(_feature_object.size()>MAX_MFEATURE){
+      _feature_object.pop_front();
+    }
+    
 }
+
 void ofApp::addARPiece(ofVec3f loc_){
     int last=ofRandom(2)<1?-1:floor(ofRandom(2000,1000));
-    if(ofRandom(2)<1)
-        _feature_object.push_back(new DPiece(loc_,last));
-    else
-        _feature_object.push_back(new DPieceEdge(loc_,last));
+    if(ofRandom(2)<1){
+        _feature_object.push_back(shared_ptr<DObject>(new DPiece(loc_,last)));
+    }else{
+        _feature_object.push_back(shared_ptr<DObject>(new DPieceEdge(loc_,last)));
+    }
+    //random_shuffle(_feature_object.begin(), _feature_object.end());
+
 }
 
 void ofApp::addARLine(ofVec3f loc_){
     auto vert_=getFeatureChain(loc_,floor(ofRandom(5,10)));
-    if(vert_.size()>0) _feature_object.push_back(new DSandLine(vert_[0],floor(ofRandom(1000,5000)),vert_));
+    if(vert_.size()>0) _feature_object.push_back(shared_ptr<DObject>(new DSandLine(*vert_.begin(),floor(ofRandom(1000,5000)),vert_)));
     
 }
 
 void ofApp::addARParticle(ofVec3f loc_){
     
-    _feature_object.push_back(new DRainy(loc_,floor(ofRandom(2000,10000))));
+    _feature_object.push_back(shared_ptr<DObject>(new DRainy(loc_,floor(ofRandom(2000,10000)))));
+    //random_shuffle(_feature_object.begin(), _feature_object.end());
+
 }
 
 void ofApp::addFlyObject(){
     
     if(_feature_object.size()<1) return;
-    
+
     auto it=_feature_object.begin();
     int index_=floor(ofRandom(_feature_object.size()));
     
-    
-    vector<DFlyObject*> pt=_feature_object[index_]->breakdown();
-    _fly_object.insert(_fly_object.begin(),pt.begin(),pt.end());
-    
+    for(int i=0;i<index_;++i) it++;
+
+    auto pt=(*it)->breakdown();
+
+    if(pt.size()<1){
+       // delete _feature_object[index_];
+        _feature_object.erase(it);
+//        _feature_object.pop_front();
+        return;
+    }
+    _fly_object.insert(_fly_object.end(),pt.begin(),pt.end());
+
     ofLog()<<"break down to "<<pt.size()<<" flyobjects!";
+
+
+//    random_shuffle(_fly_object.begin(),_fly_object.end());
     
-    _feature_object.erase(it+index_);
-    
-    if(_fly_object.size()>MAX_MFLY_OBJ) _fly_object.resize(MAX_MFLY_OBJ);
+//    if(_fly_object.size()>MAX_MFLY_OBJ) _fly_object.resize(MAX_MFLY_OBJ);
+    while(_fly_object.size()>MAX_MFLY_OBJ){
+//            //delete _fly_object[0];
+            _fly_object.pop_front();
+    }
     
     
 }
@@ -350,6 +381,7 @@ void ofApp::draw(){
     ofDisableDepthTest();
     
     drawCameraView();
+//    _camera_view.draw(0, 0,ofGetWidth(),ofGetHeight());
     
     ofEnableDepthTest();
     
@@ -358,36 +390,29 @@ void ofApp::draw(){
     processor->setARCameraMatrices();
     
     
-//    _shader_mapscreen.begin();
-//    _shader_mapscreen.setUniformTexture("inputImageTexture", _camera_view, 0);
-    
-    //_camera_view.setTextureWrap(GL_REPEAT,GL_REPEAT);
-    
-   
+
     _shader_mapscreen.begin();
     _shader_mapscreen.setUniformTexture("inputImageTexture", _camera_view, 0);
     _shader_mapscreen.setUniform1f("window_width", ofGetWidth()*10.0);
     _shader_mapscreen.setUniform1f("window_height", ofGetHeight()*2.0);
     _shader_mapscreen.setUniform1f("frame_count", ((float)ofGetFrameNum()/150.0));
-    
+//
     for(auto& p:_feature_object)
         if(p->_shader_fill) p->draw();
-    
-    
+//
+//
     _shader_mapscreen.end();
-    
+//
     _camera_view.bind();
-    
+//
     for(auto& p:_feature_object)
         if(!p->_shader_fill) p->draw();
-    
+
     for(auto& p:_fly_object) p->draw();
-    
+//
     _camera_view.unbind();
     
     
-//    for(auto& p:_static_object) p->draw();
-//    for(auto& p:_record_object) p->draw();
     
    
     
@@ -450,22 +475,27 @@ void ofApp::touchDown(ofTouchEventArgs & touch){
     _touch_point.x=touch.x;
     _touch_point.y=touch.y;
     
-    DZigLine *rec_;
+    DZigLine* rec_;
     switch(_stage){
         case 1:
             break;
         case 2:
             rec_=new DZigLine();
-            _feature_object.push_back(rec_);
-            _record_object=rec_;
-            return;
+            _feature_object.push_back(shared_ptr<DObject>(rec_));
+            _record_object=_feature_object.back();
+            break;
         case 3:
-        case 4:
             rec_=new DSandLine();
-            _feature_object.push_back(rec_);
-            _record_object=rec_;
+            _feature_object.push_back(shared_ptr<DObject>(rec_));
+            _record_object=_feature_object.back();
+            break;
+        case 4:
+            rec_=ofRandom(2)<1?new DSandLine():new DZigLine();
+            _feature_object.push_back(shared_ptr<DObject>(rec_));
+            _record_object=_feature_object.back();
             break;
     }
+   
 }
 
 //--------------------------------------------------------------
@@ -581,6 +611,7 @@ void ofApp::drawCameraView(){
         _shader_sobel.setUniform1f("window_width", ww);
         _shader_sobel.setUniform1f("window_height", wh);
         _shader_sobel.setUniform1f("show_threshold", _shader_threshold);
+        _shader_sobel.setUniform1f("sobel_threshold", _sobel_threshold);
         if(_shader_threshold<1.0) _shader_sobel.setUniformMatrix4f("particlePos", _screen_flow.getParticleMat());
         
 
@@ -658,6 +689,8 @@ void ofApp::setStage(int set_){
     [_song positionMs:_stage_time[set_]];
     _stage=set_;
     
+    float s=ofGetWidth()/10000.0;
+    
     switch(_stage){
         case 0:
             reset();
@@ -667,7 +700,12 @@ void ofApp::setStage(int set_){
             break;
         case 3:
             _fly_object.clear();
-            
+            DFlyObject::maxForce=.1*s;
+            DFlyObject::maxSpeed=6*s;
+            break;
+        case 4:
+            DFlyObject::maxForce=.2*s;
+            DFlyObject::maxSpeed=8*s;
             break;
     }
     
@@ -691,6 +729,7 @@ ofVec3f ofApp::findNextInChain(ofVec3f this_,ofVec3f dir_){
 //    }
 //    return ofVec3f(0);
     
+    
    
     dir_.rotate(ofRandom(-60,60),ofVec3f(0,1,0));
     return this_+dir_*ofRandom(.8,2);
@@ -698,9 +737,9 @@ ofVec3f ofApp::findNextInChain(ofVec3f this_,ofVec3f dir_){
 }
 
 
-vector<ofVec3f> ofApp::getFeatureChain(ofVec3f loc_,int len_){
+list<ofVec3f> ofApp::getFeatureChain(ofVec3f loc_,int len_){
     
-    vector<ofVec3f> chain_;
+    list<ofVec3f> chain_;
     if(_detect_feature.size()<1) return chain_;
     
     ofVec3f last_=loc_;

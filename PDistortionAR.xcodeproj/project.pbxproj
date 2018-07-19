@@ -103,7 +103,6 @@
 		CC7B4B2B9605C0BF2C8A133C /* ofxARKit.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxARKit.h; path = ../../../addons/ofxARKit/src/ofxARKit.h; sourceTree = SOURCE_ROOT; };
 		CD2C0837C7E3604DAE465BAF /* DFlyObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = DFlyObject.cpp; path = src/DFlyObject.cpp; sourceTree = SOURCE_ROOT; };
 		CDA37EEC683BC5C1A109FB2F /* OFAppViewController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = OFAppViewController.mm; path = src/viewcontrollers/OFAppViewController.mm; sourceTree = SOURCE_ROOT; };
-		DA9A7112491C40053F01C457 /* DRecord.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DRecord.h; path = src/DRecord.h; sourceTree = SOURCE_ROOT; };
 		DCA11A3992D2441F6D8D2DBD /* ARCam.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = ARCam.mm; path = ../../../addons/ofxARKit/src/ARCam.mm; sourceTree = SOURCE_ROOT; };
 		E41D3ED613B38FB500A75A5D /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		E41D3EE513B3906D00A75A5D /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/ios/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
@@ -407,7 +406,6 @@
 				E4D8936B11527B74007E1F53 /* main.mm */,
 				E4D8936D11527B74007E1F53 /* ofApp.mm */,
 				E4D8936C11527B74007E1F53 /* ofApp.h */,
-				DA9A7112491C40053F01C457 /* DRecord.h */,
 				1C3366001F058C50D5B9801A /* DSandLine.h */,
 				CD2C0837C7E3604DAE465BAF /* DFlyObject.cpp */,
 				0F85EAA5C2D1F37904EC6E76 /* DFlow.h */,

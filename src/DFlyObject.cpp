@@ -29,6 +29,9 @@ void DFlyObject::draw(){
     
     ofPushMatrix();
     ofTranslate(loc);
+    
+    ofRotate(90,vel.x,vel.y,vel.z);
+    
   //      ofDrawSphere(0,0,0,rad);
 //    ofBeginShape();
 //    ofVertex(0,0,0);
@@ -43,7 +46,7 @@ void DFlyObject::draw(){
 void DFlyObject::update(){
 }
 
-void DFlyObject::updateFlock(vector<DFlyObject*>& others){
+void DFlyObject::updateFlock(list<shared_ptr<DFlyObject>>& others){
     
     flock(others);
     vel+=acc;
@@ -57,7 +60,7 @@ void DFlyObject::updateFlock(vector<DFlyObject*>& others){
 
 //--------------------------------------------------------------
 
-void DFlyObject::flock(vector<DFlyObject*>& others){
+void DFlyObject::flock(list<shared_ptr<DFlyObject>>& others){
     
     ofVec3f sep=separate(others);
     ofVec3f ali=align(others);
@@ -83,7 +86,7 @@ void DFlyObject::applyForce(ofVec3f force){
     acc+=force;
 }
 
-ofVec3f DFlyObject::align(vector<DFlyObject*>& others){
+ofVec3f DFlyObject::align(list<shared_ptr<DFlyObject>>& others){
     float neighbor_dist=rad*5;
     ofVec3f sum(0);
     
@@ -101,7 +104,7 @@ ofVec3f DFlyObject::align(vector<DFlyObject*>& others){
     return steer;
     
 }
-ofVec3f DFlyObject::cohesion(vector<DFlyObject*>& others){
+ofVec3f DFlyObject::cohesion(list<shared_ptr<DFlyObject>>& others){
     
     float neighbor_dist=rad*3;
     ofVec3f sum;
@@ -125,7 +128,7 @@ ofVec3f DFlyObject::cohesion(vector<DFlyObject*>& others){
     
     
 }
-ofVec3f DFlyObject::separate(vector<DFlyObject*>& others){
+ofVec3f DFlyObject::separate(list<shared_ptr<DFlyObject>>& others){
     
     float desired_separataion=rad*3;
     ofVec3f sum(0);

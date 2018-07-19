@@ -114,8 +114,8 @@ public:
 
         
     }
-    vector<DFlyObject*> breakdown(){
-        vector<DFlyObject*> _fly;
+    list<shared_ptr<DFlyObject>> breakdown(){
+        list<shared_ptr<DFlyObject>> _fly;
         
         int m=_mesh.getNumVertices();
         for(int i=0;i<m-1;i++){
@@ -129,7 +129,7 @@ public:
             mesh_.addTexCoord(_mesh.getTexCoord(i+1));
             
             
-            _fly.push_back(new DFlyObject(_loc,mesh_));
+            _fly.push_back(shared_ptr<DFlyObject>(new DFlyObject(_loc,mesh_)));
             
         }
         return _fly;

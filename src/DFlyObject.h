@@ -13,11 +13,11 @@ class DFlyObject{
 private:
     
     //==== flocking ====//
-    void flock(vector<DFlyObject*>& others);
+    void flock(list<shared_ptr<DFlyObject>>& others);
     void applyForce(ofVec3f force);
-    ofVec3f align(vector<DFlyObject*>& others);
-    ofVec3f cohesion(vector<DFlyObject*>& others);
-    ofVec3f separate(vector<DFlyObject*>& others);
+    ofVec3f align(list<shared_ptr<DFlyObject>>& others);
+    ofVec3f cohesion(list<shared_ptr<DFlyObject>>& others);
+    ofVec3f separate(list<shared_ptr<DFlyObject>>& others);
     
     //vector<ofVec3f> _vertex;
     ofVboMesh _mesh;
@@ -36,7 +36,7 @@ public:
     virtual void draw();
 //    void drawTextureBox(ofTexture tex_);
     virtual void update();
-    void updateFlock(vector<DFlyObject*>& others);
+    void updateFlock(list<shared_ptr<DFlyObject>>& others);
     
     
     
