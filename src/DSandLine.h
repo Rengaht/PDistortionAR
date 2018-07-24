@@ -46,7 +46,7 @@ public:
 //        _interval=_last_time/time_;
 //        _itime=0;
         
-        _dest_length=floor(ofRandom(100,200))*MSAND_REPEAT;
+        //_dest_length=floor(ofRandom(100,200))*MSAND_REPEAT;
         ofLog()<<"_dest_length= "<<_dest_length;
         //ofLog()<<"_dest_length= "<<_dest_length<<" last= "<<_last_time<<" time= "<<time_<<"  vel= "<<_vel<<" _interval= "<<_interval;
 //        _shader_fill=true;
@@ -54,20 +54,26 @@ public:
     
     void expandMesh(ofVec3f dir_,ofVec3f next_){
         
-        //float len=next_.distance(_last_vertex);
+        float len=next_.distance(_last_vertex);
+//        ofLog()<<next_<<" -- "<<_last_vertex<<" "<<len;
         
         ofVec3f toTheLeft=dir_.getRotated(90, ofVec3f(0, 1, 1));
+        ofVec3f toTheRight=dir_.getRotated(-90, ofVec3f(0, 1, 1));
         toTheLeft.normalize();
-    
+        toTheRight.normalize();
+        
+        
         
         //float twid_=_wid*(1-_mesh.getNumVertices()/_dest_length);
+        int mseg=max(1.0,floor(len/(rad*.1)));
+        for(int j=0;j<mseg;++j){
         
-        for(int j=0;j<MSAND_REPEAT;++j){
-        
-            ofVec3f s_=_last_vertex+toTheLeft*ofRandom(-2,2)*_wid;
-
+            //ofVec3f s_=_last_vertex+toTheLeft*ofRandom(-2,2)*_wid;
+            
+            ofVec3f s_=_last_vertex.interpolate(next_,(float)j/(float)mseg);
+            float tlen=rad*ofRandom(.01,.2);
             _mesh.addVertex(s_);
-            _mesh.addVertex(s_+toTheLeft*_wid/3.0);
+            _mesh.addVertex(s_+dir_*tlen);
             
             
 //            ofColor color_(ofRandom(100,255),ofRandom(50,255),ofRandom(50,150));
@@ -76,18 +82,19 @@ public:
             
 //
             _mesh.addTexCoord(ofVec2f(1,_texture_pos));
-            _mesh.addTexCoord(ofVec2f(1,_texture_pos+.2));
+            _mesh.addTexCoord(ofVec2f(1,_texture_pos));
 //            _mesh.addTexCoord(ofVec2f(_cur_length/_dest_length+.2,_texture_pos+.2));
         }
         float m=_mesh.getNumVertices();
+        ofLog()<<m;
         
         for(float i=0;i<m;i+=2){
             _mesh.setTexCoord(i,ofVec2f(i/2/m,_texture_pos));
-            _mesh.setTexCoord(i+1,ofVec2f(i/2/m,_texture_pos+_wid));
+            _mesh.setTexCoord(i+1,ofVec2f(i/2/m+_wid,_texture_pos));
         }
         
-        _last_dir=dir_;
-        _last_vertex=next_;
+//        _last_dir=dir_;
+//        _last_vertex=next_;
 
     }
     void addSegment(){
@@ -108,7 +115,7 @@ public:
         
         
         
-        //ofSetLineWidth(5);
+        ofSetLineWidth(5);
         ofDisableArbTex();
         
         ofPushMatrix();
@@ -149,27 +156,28 @@ public:
     list<shared_ptr<DFlyObject>> breakdown(){
         list<shared_ptr<DFlyObject>> _fly;
         
-        int m=_mesh.getNumVertices();
-        if(m<2) return _fly;
-        
-        int add_=floor(ofRandom(.2,.5)*m/2);
-        int i=0;
-        while(i<add_){
-            ofMesh mesh_;
-            mesh_.setMode(OF_PRIMITIVE_LINES);
-            
-            ofVec3f loc=_mesh.getVertex(0);
-            
-            for(int j=0;j<2;++j){
-                mesh_.addVertex(_mesh.getVertex(j)-loc);
-                mesh_.addTexCoord(_mesh.getTexCoord(j)-loc);
-                
-                _mesh.removeVertex(j);
-            }
-            
-            _fly.push_back(shared_ptr<DFlyObject>(new DFlyObject(_loc,mesh_)));
-            i++;
-        }
+//        int m=_mesh.getNumVertices();
+//        if(m<2) return _fly;
+//
+//        int add_=m;//floor(ofRandom(.2,.5)*m/2);
+//        int i=0;
+//        while(i<add_){
+//            ofMesh mesh_;
+//            mesh_.setMode(OF_PRIMITIVE_LINES);
+//
+//            ofVec3f loc=_mesh.getVertex(i);
+//
+//            for(int j=0;j<2;++j){
+//                mesh_.addVertex(_mesh.getVertex(i+j)-loc);
+//                mesh_.addTexCoord(_mesh.getTexCoord(i+j)-loc);
+//
+//                //_mesh.removeVertex(j);
+//            }
+//
+//            _fly.push_back(shared_ptr<DFlyObject>(new DFlyObject(loc,mesh_)));
+//            i++;
+//        }
+        //_mesh.clear();
         
         return _fly;
     }

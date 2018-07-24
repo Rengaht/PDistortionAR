@@ -8,16 +8,16 @@
 #include "DFlyObject.h"
 
 //--------------------------------------------------------------
-DFlyObject::DFlyObject(ofVec3f loc_,ofMesh mesh_){
+DFlyObject::DFlyObject(ofVec3f loc_,ofMesh mesh_,bool shader_){
     
     loc=loc_;
     vel=ofVec3f(0);
     acc=ofVec3f(0);
     
-    phi=ofRandom(TWO_PI);
+    phi=ofRandom(360);
     
     _mesh=mesh_;
-    
+    _shader_fill=shader_;
 }
 
 //--------------------------------------------------------------
@@ -30,7 +30,7 @@ void DFlyObject::draw(){
     ofPushMatrix();
     ofTranslate(loc);
     
-    ofRotate(90,vel.x,vel.y,vel.z);
+    ofRotate(phi+90,vel.x,vel.y,vel.z);
     
   //      ofDrawSphere(0,0,0,rad);
 //    ofBeginShape();

@@ -81,6 +81,8 @@ void main(){
 //        }
 
         dr=mix(window_width/4.0,window_width/3.0,show_threshold);
+        dr*=dr;
+        
         for(float i=0.0;i<4.0;++i){
             int ix=int(floor(i*2.0/4.0));
             int iy=int(floor(mod((i*2.0),4.0)));
@@ -89,19 +91,19 @@ void main(){
             
             dx=texCoord.x*window_width-particlePos[ix][iy];
             dy=(1.0-texCoord.y)*window_height-particlePos[jx][jy];
-            sum+=dr*dr*2.0/(dx*dx+dy*dy);
+            sum+=dr*2.0/(dx*dx+dy*dy);
         }
 //        dr=particlePos[3][2];
         dx=texCoord.x*window_width;
         dy=(texCoord.y-show_threshold)*window_height;
-        sum+=dr*dr/(dx*dx+dy*dy);
+        sum+=dr/(dx*dx+dy*dy);
 //
 //        dr=particlePos[3][2];
         dx=window_width-texCoord.x*window_width;
         dy=(texCoord.y-show_threshold)*window_height;
-        sum+=dr*dr/(dx*dx+dy*dy);
+        sum+=dr/(dx*dx+dy*dy);
         
-        if(sum<(1.0-show_threshold-0.1*cnoise(textureCoordinate))){
+        if(sum<(1.0-show_threshold)){//-0.1*cnoise(textureCoordinate))){
             gl_FragColor=texture2D(Sampler,textureCoordinate);
             return;
         }

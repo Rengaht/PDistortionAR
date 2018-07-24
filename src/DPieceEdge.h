@@ -11,7 +11,7 @@
 
 class DPieceEdge:public DObject{
     
-    ofMesh _mesh;
+    ofVboMesh _mesh;
     ofVec2f _texture_pos;
     float _texture_rad;
     
@@ -101,15 +101,12 @@ public:
         if(_start_pos>0) _start_pos+=_vel*dt;
         
         float m=_mesh.getNumVertices();
-        float s_;
-        for(int i=0;i<m;i+=2){
+        for(int i=1;i<m-1;i+=3){
             auto p=_mesh.getVertex(i);
             p.y=_wid/5*ofNoise(p.x)+_wid*ofRandom(-.1,.1);
 
             _mesh.setVertex(i,p);
-            p.y+=_wid/8.0*ofNoise(p.z);
-            _mesh.setVertex(i+1,p);
-            
+
         }
 
         
@@ -118,18 +115,23 @@ public:
         list<shared_ptr<DFlyObject>> _fly;
         
         int m=_mesh.getNumVertices();
-        for(int i=0;i<m-1;i++){
+        for(int i=0;i<m;){
             ofMesh mesh_;
             mesh_.setMode(OF_PRIMITIVE_LINES);
             
+            int k=min(int(ofRandom(2,10)),m-i);
+            
+            if(k<2) break;
+            
             ofVec3f loc=_mesh.getVertex(i);
-            mesh_.addVertex(_mesh.getVertex(i)-loc);
-            mesh_.addVertex(_mesh.getVertex(i+1)-loc);
-            mesh_.addTexCoord(_mesh.getTexCoord(i));
-            mesh_.addTexCoord(_mesh.getTexCoord(i+1));
             
+            for(int j=0;j<k;++j){
+                mesh_.addVertex(_mesh.getVertex(i+j)-loc);
+                mesh_.addTexCoord(_mesh.getTexCoord(i+j));
+            }
+            i+=k;
             
-            _fly.push_back(shared_ptr<DFlyObject>(new DFlyObject(_loc,mesh_)));
+            _fly.push_back(shared_ptr<DFlyObject>(new DFlyObject(loc,mesh_,true)));
             
         }
         return _fly;

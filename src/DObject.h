@@ -19,6 +19,7 @@ public:
     bool _forever;
     
     bool _shader_fill;
+    int _index_break;
     
     
     DObject(ofVec3f pos):DObject(pos,-1){
@@ -30,6 +31,7 @@ public:
         _forever=(_last_time==-1);
         ofLog()<<"last_time= "<<last_;
         _shader_fill=false;
+        
     }
     virtual void draw(){}
     virtual void update(int dt){

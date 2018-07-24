@@ -6,8 +6,9 @@
 
 #include "ofxiOS.h"
 #include "ofxARKit.h"
-#include "ofxDelaunay.h"
+//#include "ofxDelaunay.h"
 
+#include "DUIview.h"
 #include "DFlow.h"
 #include "DFlyObject.h"
 #include "DZigLine.h"
@@ -18,10 +19,11 @@
 #include "DPieceEdge.h"
 
 
-
-#define MSTAGE 6
-#define MEFFECT 11
-#define MAX_MFEATURE 20
+#define MSTAGE 7
+#define MPIANO 17
+#define MDOT 17
+#define MRAIN 17
+#define MAX_MFEATURE 40
 #define MAX_MFLY_OBJ 40
 #define MTOUCH_SMOOTH 6
 
@@ -51,11 +53,12 @@ class ofApp : public ofxiOSApp {
         void deviceOrientationChanged(int newOrientation);
 
     
-        ofTrueTypeFont font;
         ofCamera cam;
     
         int _last_millis;
         int _dmillis;
+    
+        int _ww,_wh;
     
         // ====== SONG ======== //
         AVSoundPlayer* _song;
@@ -65,8 +68,11 @@ class ofApp : public ofxiOSApp {
         void setStage(int set_);
         int _stage_time[MSTAGE+1];
     
-        int _effect_time[MEFFECT+1];
-        int _ieffect;
+        int _piano_time[MPIANO+1];
+        int _rain_time[MRAIN+1];
+        int _dot_time[MDOT+1];
+    
+        int _ipiano,_irain,_idot;
     
         // ====== AR STUFF ======== //
         ARSession * session;
@@ -95,6 +101,7 @@ class ofApp : public ofxiOSApp {
         // ====== ar object ======//
         list<shared_ptr<DObject>> _feature_object;
         shared_ptr<DObject> _record_object;
+        shared_ptr<DObject> _record_object_side;
     
         //vector<DStatic*> _static_object;
     
@@ -121,17 +128,22 @@ class ofApp : public ofxiOSApp {
         vector<ofVec2f> _prev_touch;
         void addTouchTrajectory();
     
-    
+        void loadEffectTime();
+        void shuffleFeature();
     
         // ====== ui ======//
+        DUIView *_uiview;
         void resetButton();
         void nextStage();
         void prevStage();
     
+        void setPlay(int& play_);
+        void setSongTime(int& time_);
+    
+    
         bool _touched;
         ofVec2f _touch_point;
-    
-        string _hint;
+        
     
 };
 

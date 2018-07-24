@@ -24,7 +24,7 @@ class DZigLine:public DObject{
     }
    
 public:
-    ofMesh _mesh;
+    ofVboMesh _mesh;
     float _texture_pos;
     ofVec3f _last_vertex;
     ofVec3f _last_dir;
@@ -89,6 +89,8 @@ public:
         }
         
         vert_-=_loc;
+        
+        //ofLog()<<vert_;
         
         ofVec3f next_=vert_-_last_vertex;
         next_.normalize();
@@ -157,27 +159,31 @@ public:
         int m=_mesh.getNumVertices();
         if(m<1) return _fly;
         
-        ofMesh mesh_;
-        mesh_.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
         
-        int add_=floor(ofRandom(.2,.5)*m)/4;
+        
+        int add_=m;//floor(ofRandom(.2,.5)*m)/4;
         int i=0;
-        while(i<add_){
+        while(i<add_-4){
 //            vector<ofVec3f> line_;
 //            line_.push_back(_mesh.getVertex(i+1));
-            
             ofVec3f loc=_mesh.getVertex(i);
             
+            ofMesh mesh_;
+            mesh_.setMode(OF_PRIMITIVE_TRIANGLE_STRIP);
+            
+            
             for(int j=0;j<4;++j){
-                mesh_.addVertex(_mesh.getVertex(j)-loc);
-                mesh_.addTexCoord(_mesh.getTexCoord(j)-loc);
+                mesh_.addVertex(_mesh.getVertex(i+j)-loc);
+                mesh_.addTexCoord(_mesh.getTexCoord(i+j)-loc);
                 
-                _mesh.removeVertex(j);
+                //_mesh.removeVertex(j);
             }
             
-            i++;
+            i+=4;
+            _fly.push_back(shared_ptr<DFlyObject>(new DFlyObject(loc,mesh_)));
+            
         }
-        _fly.push_back(shared_ptr<DFlyObject>(new DFlyObject(_loc,mesh_)));
+        //_mesh.clear();
         
         return _fly;
     }

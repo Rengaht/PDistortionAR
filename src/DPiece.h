@@ -11,7 +11,7 @@
 
 class DPiece:public DObject{
     
-    ofMesh _mesh;
+    ofVboMesh _mesh;
     ofVec2f _texture_pos;
     float _phi;
     float _wid;
@@ -27,7 +27,7 @@ public:
         _phi=ofRandom(360);
         _wid=rad*ofRandom(.5,.8);
         
-        _start_pos=_wid*ofRandom(10,20);
+        _start_pos=_wid*ofRandom(20,30);
         _vel=-_start_pos/ofRandom(200,400);
         
         _shader_fill=true;
@@ -44,7 +44,7 @@ public:
         
 //        float start_=ofRandom(30);
         float ang_=0;//start_;
-        float trad_=min(1-_texture_pos.x,_texture_pos.x)/20.0;
+        float trad_=1/20.0;
         
         while(ang_<=360){
             ofVec3f p(1,0,0);
@@ -83,17 +83,17 @@ public:
         
         if(_start_pos>0) _start_pos+=_vel*dt;
         
-        float m=_mesh.getNumVertices();
-        float s_;
-        for(int i=1;i<m;++i){
-            auto p=_mesh.getVertex(i);
-            p.y=_wid*ofRandom(-.1,.1);
-            
-            if(i==1) s_=p.y;
-            else if(i==m-1) p.y=s_;
-            
-            _mesh.setVertex(i,p);
-        }
+//        float m=_mesh.getNumVertices();
+//        float s_;
+//        for(int i=1;i<m-1;i+=3){
+//            auto p=_mesh.getVertex(i);
+//            p.y=_wid*ofRandom(-.1,.1);
+//
+//            if(i==1) s_=p.y;
+//            else if(i==m-1) p.y=s_;
+//
+//            _mesh.setVertex(i,p);
+//        }
         
         
     }
@@ -117,10 +117,9 @@ public:
             mesh_.addTexCoord(_mesh.getTexCoord(i+1));
             
             
-            _fly.push_back(shared_ptr<DFlyObject>(new DFlyObject(_loc,mesh_)));
+            _fly.push_back(shared_ptr<DFlyObject>(new DFlyObject(loc,mesh_,true)));
             
         }
-      
         return _fly;
     }
 };

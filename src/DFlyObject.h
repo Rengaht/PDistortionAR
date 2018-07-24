@@ -29,9 +29,11 @@ public:
     static ofVec3f cent;
     
     float phi;
+    bool _shader_fill;
+    
     
     //DFlyObject();
-    DFlyObject(ofVec3f loc_,ofMesh mesh_);
+    DFlyObject(ofVec3f loc_,ofMesh mesh_,bool shader_=false);
     
     virtual void draw();
 //    void drawTextureBox(ofTexture tex_);
