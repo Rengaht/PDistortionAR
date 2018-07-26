@@ -177,7 +177,7 @@ public:
                         _hint="WAIT";
                         break;
                     case 1:
-                        _hint="WATCH";
+                        _hint="EXPLORE";
                         break;
                     case 2:
                         _hint="TOUCH & MOVE";
@@ -199,7 +199,7 @@ public:
         }
         
         if(!_playing){
-            _hint=_hint+"\n\nDISTORTION\nTrack 3. Be_feat.Coco Hsiao\n\nMusic by Printed Noise Lab ©\nAR by Merlin's Mustache Lab ©";
+            _hint=_hint+"\n\nDISTORTION\nTrack 3. Be_feat.Coco Hsiao\n---------------------------\nMusic by Printed Noise Lab\nAR by Merlin's Mustache Lab";
         }
     }
     

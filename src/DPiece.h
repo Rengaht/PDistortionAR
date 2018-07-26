@@ -28,7 +28,7 @@ public:
         _wid=rad*ofRandom(.5,.8);
         
         _start_pos=_wid*ofRandom(20,30);
-        _vel=-_start_pos/ofRandom(200,400);
+        _vel=-_start_pos/ofRandom(100,200);
         
         _shader_fill=true;
         
@@ -69,6 +69,7 @@ public:
         
         ofPushMatrix();
         ofTranslate(_loc.x,_loc.y+_start_pos,_loc.z);
+//        ofRotate(90,1,0,0);
         ofRotate(_phi,0,1,0);
         
         //_triangle.triangleMesh.draw();

@@ -11,20 +11,16 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		26E48FA925CB7AB40D972560 /* ARProcessor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 16C7F36EEA16280EF694F1CA /* ARProcessor.mm */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		2A2EF25AD6E3FCB2E34E0E84 /* SCWaveformCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E19B357DA63B93F9778A9FF9 /* SCWaveformCache.m */; };
 		5326AEA810A23A0500278DE6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5326AEA710A23A0500278DE6 /* CoreLocation.framework */; };
 		53F323EB10A20EDB00E0DAE4 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53F323EA10A20EDB00E0DAE4 /* OpenAL.framework */; };
-		678E130817951530005B6D19 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130717951530005B6D19 /* Icon@2x.png */; };
-		678E130A17951536005B6D19 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130917951536005B6D19 /* Icon.png */; };
-		678E130C1795153C005B6D19 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130B1795153C005B6D19 /* Default.png */; };
-		678E130E17951540005B6D19 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130D17951540005B6D19 /* Default@2x.png */; };
-		678E131017951549005B6D19 /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */; };
 		67DFA53619F92A69003B3434 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67DFA53419F92A5E003B3434 /* Accelerate.framework */; };
-		87A34EBC0F47C29339CF1D28 /* Delaunay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1E2A7B869B0465AEBF28825D /* Delaunay.cpp */; };
 		888D698EA7C67CF20BABEDAF /* MyAppViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 623C80DF40EE6BCDFCC80B51 /* MyAppViewController.mm */; };
 		8DEE3593CFC3E0A0F3578C2D /* ARCam.mm in Sources */ = {isa = PBXBuildFile; fileRef = DCA11A3992D2441F6D8D2DBD /* ARCam.mm */; };
-		9102D0609CDD0B902F138C68 /* ofxDelaunay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBE3E908E4BB3468853C50ED /* ofxDelaunay.cpp */; };
 		966DC6CFF8359AF2BCC8EAFD /* ARAnchorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBAC3A38884A86BA86D4C26D /* ARAnchorManager.mm */; };
-		A6687C3920FC972200DC4557 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6687C3820FC972200DC4557 /* ARKit.framework */; };
+		A62527BD2109DE0000211B90 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A62527BC2109DE0000211B90 /* Launch Screen.storyboard */; };
+		A62527C02109DE1500211B90 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A62527BF2109DE1500211B90 /* ARKit.framework */; };
+		A62527C22109DE4000211B90 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A62527C12109DE4000211B90 /* Images.xcassets */; };
 		A9A16B1E62191E33535D39D3 /* MyAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = F63C79BA3EC38360C02D550C /* MyAppDelegate.mm */; };
 		BB16EBD20F2B2A9500518274 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD10F2B2A9500518274 /* OpenGLES.framework */; };
 		BB16EBD90F2B2AB500518274 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB16EBD80F2B2AB500518274 /* QuartzCore.framework */; };
@@ -60,51 +56,47 @@
 /* Begin PBXFileReference section */
 		09673E6D454686E403C40A18 /* ARUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ARUtils.h; path = ../../../addons/ofxARKit/src/ARUtils.h; sourceTree = SOURCE_ROOT; };
 		0F85EAA5C2D1F37904EC6E76 /* DFlow.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DFlow.h; path = src/DFlow.h; sourceTree = SOURCE_ROOT; };
+		11004C61E161F63F6F69D7CA /* DPool.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DPool.h; path = src/DPool.h; sourceTree = SOURCE_ROOT; };
 		16C7F36EEA16280EF694F1CA /* ARProcessor.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = ARProcessor.mm; path = ../../../addons/ofxARKit/src/ARProcessor.mm; sourceTree = SOURCE_ROOT; };
 		1C3366001F058C50D5B9801A /* DSandLine.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DSandLine.h; path = src/DSandLine.h; sourceTree = SOURCE_ROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* PDistortionAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PDistortionAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		1E2A7B869B0465AEBF28825D /* Delaunay.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Delaunay.cpp; path = ../../../addons/ofxDelaunay/libs/Delaunay/src/Delaunay.cpp; sourceTree = SOURCE_ROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		28CD9659C1D4E430F1B9C2E4 /* Delaunay.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Delaunay.h; path = ../../../addons/ofxDelaunay/libs/Delaunay/src/Delaunay.h; sourceTree = SOURCE_ROOT; };
+		28BED2E07BA9D5A4639F8E59 /* DPieceEdge.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DPieceEdge.h; path = src/DPieceEdge.h; sourceTree = SOURCE_ROOT; };
 		302A7A61ECBFE243BE2A6D15 /* ARProcessor.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ARProcessor.h; path = ../../../addons/ofxARKit/src/ARProcessor.h; sourceTree = SOURCE_ROOT; };
 		32CA4F630368D1EE00C91783 /* ofxiOS_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxiOS_Prefix.pch; sourceTree = "<group>"; };
 		39B3A8D4FD292F93C28B8AEC /* MyAppViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = MyAppViewController.h; path = src/viewcontrollers/MyAppViewController.h; sourceTree = SOURCE_ROOT; };
-		3FCC3CC63F1FB03FA5A6C417 /* KDTree.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = KDTree.h; path = ../../../addons/ofxSpatialHash/libs/ofxSpatialHash/include/ofx/KDTree.h; sourceTree = SOURCE_ROOT; };
 		5326AEA710A23A0500278DE6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		53F323EA10A20EDB00E0DAE4 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+		54A70756E7F0A4FB43A33844 /* _PAudioData.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = _PAudioData.h; path = src/_PAudioData.h; sourceTree = SOURCE_ROOT; };
 		581E4B10C1444D6272A60B20 /* ARShaders.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ARShaders.h; path = ../../../addons/ofxARKit/src/ARShaders.h; sourceTree = SOURCE_ROOT; };
 		623C80DF40EE6BCDFCC80B51 /* MyAppViewController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = MyAppViewController.mm; path = src/viewcontrollers/MyAppViewController.mm; sourceTree = SOURCE_ROOT; };
 		6305FC4AB701AEC8BA64E935 /* ARDebugUtils.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ARDebugUtils.h; path = ../../../addons/ofxARKit/src/ARDebugUtils.h; sourceTree = SOURCE_ROOT; };
-		678E130717951530005B6D19 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "bin/data/Icon@2x.png"; sourceTree = "<group>"; };
-		678E130917951536005B6D19 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = bin/data/Icon.png; sourceTree = "<group>"; };
-		678E130B1795153C005B6D19 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = bin/data/Default.png; sourceTree = "<group>"; };
-		678E130D17951540005B6D19 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "bin/data/Default@2x.png"; sourceTree = "<group>"; };
-		678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x~iphone.png"; path = "bin/data/Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
+		6581222B4F69B88A97B8CDFF /* DLine.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DLine.h; path = src/DLine.h; sourceTree = SOURCE_ROOT; };
+		660826EAF16151351C0EDE26 /* DUIview.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DUIview.h; path = src/DUIview.h; sourceTree = SOURCE_ROOT; };
 		67DFA53419F92A5E003B3434 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		86BAACFE0BF7EA1416376330 /* MyAppDelegate.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = MyAppDelegate.h; path = src/delegates/MyAppDelegate.h; sourceTree = SOURCE_ROOT; };
-		8AA89AFF4E71C7EC510642B7 /* ofxDelaunay.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDelaunay.h; path = ../../../addons/ofxDelaunay/src/ofxDelaunay.h; sourceTree = SOURCE_ROOT; };
 		8CED944372A372672447BABA /* ARAnchorManager.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ARAnchorManager.h; path = ../../../addons/ofxARKit/src/ARAnchorManager.h; sourceTree = SOURCE_ROOT; };
 		A1A23E036074B0FDF6F3662C /* DPiece.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DPiece.h; path = src/DPiece.h; sourceTree = SOURCE_ROOT; };
-		A6687C3820FC972200DC4557 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
-		A6687C3A20FCFDDF00DC4557 /* DLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DLine.h; sourceTree = "<group>"; };
-		A6687C3B20FD9B3300DC4557 /* DPieceEdge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPieceEdge.h; sourceTree = "<group>"; };
-		A66E0C8D210789B600F302BF /* DUIview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DUIview.h; sourceTree = "<group>"; };
+		A62527BC2109DE0000211B90 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		A62527BF2109DE1500211B90 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = System/Library/Frameworks/ARKit.framework; sourceTree = SDKROOT; };
+		A62527C12109DE4000211B90 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = PDistortionAR/Images.xcassets; sourceTree = "<group>"; };
 		AFA32F15CBC34924092B5BDA /* OFAppViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = OFAppViewController.h; path = src/viewcontrollers/OFAppViewController.h; sourceTree = SOURCE_ROOT; };
-		B93E3253E66E6B282C408B7C /* nanoflann.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = nanoflann.hpp; path = ../../../addons/ofxSpatialHash/libs/nanoflann/include/nanoflann.hpp; sourceTree = SOURCE_ROOT; };
+		B1AF6618BD67759C6D57E4DE /* PAudioData.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = PAudioData.h; path = src/PAudioData.h; sourceTree = SOURCE_ROOT; };
 		BB16EBD10F2B2A9500518274 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BB16EBD80F2B2AB500518274 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		BB24DDC910DA781C00E9C588 /* ofxiOS-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ofxiOS-Info.plist"; sourceTree = "<group>"; };
 		BBAC3A38884A86BA86D4C26D /* ARAnchorManager.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = ARAnchorManager.mm; path = ../../../addons/ofxARKit/src/ARAnchorManager.mm; sourceTree = SOURCE_ROOT; };
-		BBE3E908E4BB3468853C50ED /* ofxDelaunay.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxDelaunay.cpp; path = ../../../addons/ofxDelaunay/src/ofxDelaunay.cpp; sourceTree = SOURCE_ROOT; };
 		BBE5EAB70F49AD8400F28951 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		BD41F3C54091C97B42663877 /* SCWaveformCache.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = SCWaveformCache.h; path = src/wavereader/SCWaveformCache.h; sourceTree = SOURCE_ROOT; };
 		C30B22DF92B8942DDA6005CC /* DObject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DObject.h; path = src/DObject.h; sourceTree = SOURCE_ROOT; };
-		C7741F5222EA5255DD6710ED /* ofxSpatialHash.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSpatialHash.h; path = ../../../addons/ofxSpatialHash/src/ofxSpatialHash.h; sourceTree = SOURCE_ROOT; };
 		CC7B4B2B9605C0BF2C8A133C /* ofxARKit.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxARKit.h; path = ../../../addons/ofxARKit/src/ofxARKit.h; sourceTree = SOURCE_ROOT; };
 		CD2C0837C7E3604DAE465BAF /* DFlyObject.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = DFlyObject.cpp; path = src/DFlyObject.cpp; sourceTree = SOURCE_ROOT; };
 		CDA37EEC683BC5C1A109FB2F /* OFAppViewController.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = OFAppViewController.mm; path = src/viewcontrollers/OFAppViewController.mm; sourceTree = SOURCE_ROOT; };
+		DA9A7112491C40053F01C457 /* DRecord.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = DRecord.h; path = src/DRecord.h; sourceTree = SOURCE_ROOT; };
 		DCA11A3992D2441F6D8D2DBD /* ARCam.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = ARCam.mm; path = ../../../addons/ofxARKit/src/ARCam.mm; sourceTree = SOURCE_ROOT; };
+		E19B357DA63B93F9778A9FF9 /* SCWaveformCache.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = SCWaveformCache.m; path = src/wavereader/SCWaveformCache.m; sourceTree = SOURCE_ROOT; };
 		E41D3ED613B38FB500A75A5D /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
 		E41D3EE513B3906D00A75A5D /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/ios/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
 		E41D400613B39D2100A75A5D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -131,7 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6687C3920FC972200DC4557 /* ARKit.framework in Frameworks */,
+				A62527C02109DE1500211B90 /* ARKit.framework in Frameworks */,
 				E41D421413B3A95300A75A5D /* libofxiOS_iphoneos_Debug.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
@@ -152,14 +144,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0593F71A6C41BCBCD91D9C0C /* ofx */ = {
-			isa = PBXGroup;
-			children = (
-				3FCC3CC63F1FB03FA5A6C417 /* KDTree.h */,
-			);
-			name = ofx;
-			sourceTree = "<group>";
-		};
 		06BE3FD42B9E184DA8B2B49B /* delegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -188,17 +172,14 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				678E130917951536005B6D19 /* Icon.png */,
-				678E130717951530005B6D19 /* Icon@2x.png */,
-				678E130B1795153C005B6D19 /* Default.png */,
-				678E130D17951540005B6D19 /* Default@2x.png */,
-				678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */,
+				A62527C12109DE4000211B90 /* Images.xcassets */,
+				A62527BC2109DE0000211B90 /* Launch Screen.storyboard */,
 				E4D8936A11527B74007E1F53 /* src */,
 				BB24E1F710DAA51900E9C588 /* openFrameworks */,
 				BB16F26B0F2B646B00518274 /* addons */,
 				BB16E9930F2B1E5900518274 /* libs */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				A6687C3720FC972200DC4557 /* Frameworks */,
+				A62527BE2109DE1400211B90 /* Frameworks */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -224,29 +205,13 @@
 			name = "core frameworks";
 			sourceTree = "<group>";
 		};
-		385A835B12A0021297521F5A /* src */ = {
+		2E53630E92D406ADB9C0F272 /* wavereader */ = {
 			isa = PBXGroup;
 			children = (
-				C7741F5222EA5255DD6710ED /* ofxSpatialHash.h */,
+				E19B357DA63B93F9778A9FF9 /* SCWaveformCache.m */,
+				BD41F3C54091C97B42663877 /* SCWaveformCache.h */,
 			);
-			name = src;
-			sourceTree = "<group>";
-		};
-		4DDDE89A215FFC6D84084F64 /* libs */ = {
-			isa = PBXGroup;
-			children = (
-				A7F935964A1EB7154C211E37 /* Delaunay */,
-			);
-			name = libs;
-			sourceTree = "<group>";
-		};
-		5A296432AD6765AD9158F813 /* ofxDelaunay */ = {
-			isa = PBXGroup;
-			children = (
-				BA7CA251A8C3541F18ECFFC2 /* src */,
-				4DDDE89A215FFC6D84084F64 /* libs */,
-			);
-			name = ofxDelaunay;
+			name = wavereader;
 			sourceTree = "<group>";
 		};
 		65605B10F492D4585BA50B2D /* src */ = {
@@ -276,63 +241,12 @@
 			name = local_addons;
 			sourceTree = "<group>";
 		};
-		6C9AF35F1A9916752055A0F3 /* libs */ = {
+		A62527BE2109DE1400211B90 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B40F26471D7470B269E6F4D6 /* ofxSpatialHash */,
-				CF1D40B026E188CB81FA4F13 /* nanoflann */,
-			);
-			name = libs;
-			sourceTree = "<group>";
-		};
-		6F8AB0A4B467ADD4AFCB478C /* ofxSpatialHash */ = {
-			isa = PBXGroup;
-			children = (
-				385A835B12A0021297521F5A /* src */,
-				6C9AF35F1A9916752055A0F3 /* libs */,
-			);
-			name = ofxSpatialHash;
-			sourceTree = "<group>";
-		};
-		7C1FBBCA7CAE2DFAD0F11123 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				B93E3253E66E6B282C408B7C /* nanoflann.hpp */,
-			);
-			name = include;
-			sourceTree = "<group>";
-		};
-		A6687C3720FC972200DC4557 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				A6687C3820FC972200DC4557 /* ARKit.framework */,
+				A62527BF2109DE1500211B90 /* ARKit.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A7F935964A1EB7154C211E37 /* Delaunay */ = {
-			isa = PBXGroup;
-			children = (
-				F2BA67D6A643AE8D5667A268 /* src */,
-			);
-			name = Delaunay;
-			sourceTree = "<group>";
-		};
-		B40F26471D7470B269E6F4D6 /* ofxSpatialHash */ = {
-			isa = PBXGroup;
-			children = (
-				E953F1F92651A00C0DC78C82 /* include */,
-			);
-			name = ofxSpatialHash;
-			sourceTree = "<group>";
-		};
-		BA7CA251A8C3541F18ECFFC2 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				8AA89AFF4E71C7EC510642B7 /* ofxDelaunay.h */,
-				BBE3E908E4BB3468853C50ED /* ofxDelaunay.cpp */,
-			);
-			name = src;
 			sourceTree = "<group>";
 		};
 		BB16E9930F2B1E5900518274 /* libs */ = {
@@ -347,8 +261,6 @@
 			isa = PBXGroup;
 			children = (
 				2152D16385B8F9DE337E943B /* ofxARKit */,
-				5A296432AD6765AD9158F813 /* ofxDelaunay */,
-				6F8AB0A4B467ADD4AFCB478C /* ofxSpatialHash */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -374,14 +286,6 @@
 			name = core;
 			sourceTree = "<group>";
 		};
-		CF1D40B026E188CB81FA4F13 /* nanoflann */ = {
-			isa = PBXGroup;
-			children = (
-				7C1FBBCA7CAE2DFAD0F11123 /* include */,
-			);
-			name = nanoflann;
-			sourceTree = "<group>";
-		};
 		D33A4FA4AC0104064E0F7CBA /* viewcontrollers */ = {
 			isa = PBXGroup;
 			children = (
@@ -404,42 +308,30 @@
 		E4D8936A11527B74007E1F53 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				A66E0C8D210789B600F302BF /* DUIview.h */,
 				E4D8936B11527B74007E1F53 /* main.mm */,
 				E4D8936D11527B74007E1F53 /* ofApp.mm */,
 				E4D8936C11527B74007E1F53 /* ofApp.h */,
+				6581222B4F69B88A97B8CDFF /* DLine.h */,
+				2E53630E92D406ADB9C0F272 /* wavereader */,
+				DA9A7112491C40053F01C457 /* DRecord.h */,
 				1C3366001F058C50D5B9801A /* DSandLine.h */,
+				28BED2E07BA9D5A4639F8E59 /* DPieceEdge.h */,
 				CD2C0837C7E3604DAE465BAF /* DFlyObject.cpp */,
 				0F85EAA5C2D1F37904EC6E76 /* DFlow.h */,
 				A1A23E036074B0FDF6F3662C /* DPiece.h */,
 				D33A4FA4AC0104064E0F7CBA /* viewcontrollers */,
+				54A70756E7F0A4FB43A33844 /* _PAudioData.h */,
 				EA4633A64576E59563CE1255 /* DRainy.h */,
 				C30B22DF92B8942DDA6005CC /* DObject.h */,
 				FE282A9B0B19EC3B0B9AFA15 /* DFlyObject.h */,
+				B1AF6618BD67759C6D57E4DE /* PAudioData.h */,
 				06BE3FD42B9E184DA8B2B49B /* delegates */,
 				FEA708BDC0E1C1E6370350D0 /* DZigLine.h */,
-				A6687C3A20FCFDDF00DC4557 /* DLine.h */,
-				A6687C3B20FD9B3300DC4557 /* DPieceEdge.h */,
+				660826EAF16151351C0EDE26 /* DUIview.h */,
+				11004C61E161F63F6F69D7CA /* DPool.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
-		};
-		E953F1F92651A00C0DC78C82 /* include */ = {
-			isa = PBXGroup;
-			children = (
-				0593F71A6C41BCBCD91D9C0C /* ofx */,
-			);
-			name = include;
-			sourceTree = "<group>";
-		};
-		F2BA67D6A643AE8D5667A268 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				28CD9659C1D4E430F1B9C2E4 /* Delaunay.h */,
-				1E2A7B869B0465AEBF28825D /* Delaunay.cpp */,
-			);
-			name = src;
-			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
@@ -473,6 +365,7 @@
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = TGNJHC79A3;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -516,11 +409,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				678E130817951530005B6D19 /* Icon@2x.png in Resources */,
-				678E130A17951536005B6D19 /* Icon.png in Resources */,
-				678E130C1795153C005B6D19 /* Default.png in Resources */,
-				678E130E17951540005B6D19 /* Default@2x.png in Resources */,
-				678E131017951549005B6D19 /* Default-568h@2x~iphone.png in Resources */,
+				A62527BD2109DE0000211B90 /* Launch Screen.storyboard in Resources */,
+				A62527C22109DE4000211B90 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,6 +439,7 @@
 			files = (
 				E4D8936E11527B74007E1F53 /* main.mm in Sources */,
 				E4D8936F11527B74007E1F53 /* ofApp.mm in Sources */,
+				2A2EF25AD6E3FCB2E34E0E84 /* SCWaveformCache.m in Sources */,
 				CD9BBCFA0C8D9A9475BD8A8E /* DFlyObject.cpp in Sources */,
 				CB9CBC6D4EDF6466EB7BCF5B /* OFAppViewController.mm in Sources */,
 				888D698EA7C67CF20BABEDAF /* MyAppViewController.mm in Sources */,
@@ -556,8 +447,6 @@
 				966DC6CFF8359AF2BCC8EAFD /* ARAnchorManager.mm in Sources */,
 				26E48FA925CB7AB40D972560 /* ARProcessor.mm in Sources */,
 				8DEE3593CFC3E0A0F3578C2D /* ARCam.mm in Sources */,
-				9102D0609CDD0B902F138C68 /* ofxDelaunay.cpp in Sources */,
-				87A34EBC0F47C29339CF1D28 /* Delaunay.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,13 +465,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TGNJHC79A3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ofxiOS_Prefix.pch;
 				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = NO;
 				INFOPLIST_FILE = "ofxiOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.reng.distortionar;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Debug;
@@ -590,16 +485,78 @@
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = TGNJHC79A3;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ofxiOS_Prefix.pch;
 				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = NO;
 				INFOPLIST_FILE = "ofxiOS-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.reng.distortionar;
 				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Release;
+		};
+		A64E9125210A1AC400116475 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E41D3ED613B38FB500A75A5D /* Project.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LIBRARY = "libc++";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphonesimulator*]" = "";
+				COMPRESS_PNG_FILES = NO;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
+				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(OF_CORE_HEADERS)",
+					src,
+					src/delegates,
+					src/viewcontrollers,
+					src/wavereader,
+					../../../addons/ofxARKit/src,
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
+				WARNING_LDFLAGS = "-no_arch_warnings";
+			};
+			name = AdHoc;
+		};
+		A64E9126210A1AC400116475 /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TGNJHC79A3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ofxiOS_Prefix.pch;
+				"GCC_WARN_64_TO_32_BIT_CONVERSION[arch=*64]" = NO;
+				INFOPLIST_FILE = "ofxiOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.reng.distortionar;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
+			};
+			name = AdHoc;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -626,20 +583,10 @@
 					src,
 					src/delegates,
 					src/viewcontrollers,
+					src/wavereader,
 					../../../addons/ofxARKit/src,
-					../../../addons/ofxDelaunay/libs,
-					../../../addons/ofxDelaunay/libs/Delaunay,
-					../../../addons/ofxDelaunay/libs/Delaunay/src,
-					../../../addons/ofxDelaunay/src,
-					../../../addons/ofxSpatialHash/libs,
-					../../../addons/ofxSpatialHash/libs/nanoflann,
-					../../../addons/ofxSpatialHash/libs/nanoflann/include,
-					../../../addons/ofxSpatialHash/libs/ofxSpatialHash,
-					../../../addons/ofxSpatialHash/libs/ofxSpatialHash/include,
-					../../../addons/ofxSpatialHash/libs/ofxSpatialHash/include/ofx,
-					../../../addons/ofxSpatialHash/src,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				ONLY_ACTIVE_ARCH = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
@@ -673,20 +620,10 @@
 					src,
 					src/delegates,
 					src/viewcontrollers,
+					src/wavereader,
 					../../../addons/ofxARKit/src,
-					../../../addons/ofxDelaunay/libs,
-					../../../addons/ofxDelaunay/libs/Delaunay,
-					../../../addons/ofxDelaunay/libs/Delaunay/src,
-					../../../addons/ofxDelaunay/src,
-					../../../addons/ofxSpatialHash/libs,
-					../../../addons/ofxSpatialHash/libs/nanoflann,
-					../../../addons/ofxSpatialHash/libs/nanoflann/include,
-					../../../addons/ofxSpatialHash/libs/ofxSpatialHash,
-					../../../addons/ofxSpatialHash/libs/ofxSpatialHash/include,
-					../../../addons/ofxSpatialHash/libs/ofxSpatialHash/include/ofx,
-					../../../addons/ofxSpatialHash/src,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -703,6 +640,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
+				A64E9126210A1AC400116475 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -712,6 +650,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+				A64E9125210A1AC400116475 /* AdHoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

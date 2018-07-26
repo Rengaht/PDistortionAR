@@ -1,3 +1,1 @@
 ofxARKit
-ofxDelaunay
-ofxSpatialHash

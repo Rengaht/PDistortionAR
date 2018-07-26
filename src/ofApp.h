@@ -18,13 +18,15 @@
 #include "DPiece.h"
 #include "DPieceEdge.h"
 
+#include "PAudioData.h"
+
 
 #define MSTAGE 7
-#define MPIANO 17
-#define MDOT 17
-#define MRAIN 17
+#define MPIANO 40
+#define MRAIN 12
 #define MAX_MFEATURE 40
 #define MAX_MFLY_OBJ 40
+#define MAX_MDETECT 80
 #define MTOUCH_SMOOTH 6
 
 
@@ -70,8 +72,7 @@ class ofApp : public ofxiOSApp {
     
         int _piano_time[MPIANO+1];
         int _rain_time[MRAIN+1];
-        int _dot_time[MDOT+1];
-    
+        
         int _ipiano,_irain,_idot;
     
         // ====== AR STUFF ======== //
@@ -114,12 +115,15 @@ class ofApp : public ofxiOSApp {
         ofVec3f findNextInChain(ofVec3f this_,ofVec3f dir_);
         list<ofVec3f> getFeatureChain(ofVec3f loc_,int len_);
     
+        void updateFeaturePoint();
+    
         void addARPiece(ofVec3f loc_);
         void addARLine(ofVec3f loc_);
         void addARParticle(ofVec3f loc_);
     
         void addFlyObject();
         void updateFlyCenter();
+    
     
         ofMatrix4x4 _camera_projection, _camera_viewmatrix;
         ofVec3f arScreenToWorld(ofVec3f screen_pos_);
@@ -143,7 +147,11 @@ class ofApp : public ofxiOSApp {
     
         bool _touched;
         ofVec2f _touch_point;
-        
+    
+    
+        // ====== sample file ======//
+        PAudioData *_audio_data;
+        float _amp_vibe;
     
 };
 

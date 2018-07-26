@@ -76,7 +76,7 @@ public:
         
         int m=_mesh.getNumVertices();
         if(m>_dest_length){
-            ofLog()<<"exceed vertex size! "<<m<<" "<<_dest_length;
+            //ofLog()<<"exceed vertex size! "<<m<<" "<<_dest_length;
             return;
         }
         

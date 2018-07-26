@@ -23,11 +23,13 @@ void ofApp::setup(){
     
     //NSError *err;
     _song=[[AVSoundPlayer alloc] init];
+    
     //[_song initWithContentsOfURL:[NSURL fileURLWithPath:[NSBundle.mainBundle pathForResource:@"be" ofType:@"wav"]] error:&err]; // uncompressed wav format.
     [_song loadWithFile:@"music/be.wav"];
     
 //    [vocals volume:1.0];
     _stage=-1;
+    
     
     
 //    int fontSize = 8;
@@ -82,7 +84,7 @@ void ofApp::setup(){
     
     _last_millis=ofGetElapsedTimeMillis();
     _dmillis=0;
-    
+    _song_time=0;
     
     _shader_threshold=0;
     _sobel_threshold=.5;
@@ -95,24 +97,39 @@ void ofApp::setup(){
     //ofAddListener(_uiview->_event_time, this, &ofApp::setSongTime);
     
     
+    _audio_data=new PAudioData("sample");
+    
     reset();
     
-    
+//    _shader_threshold=1.0;
+//    _sobel_threshold=.7;
+//
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     
     
+    
+    
     if(!_uiview->_playing || _stage==0 || _stage==5) processor->updateCamera();
     else processor->update();
     //processor->updatePlanes();
+    
+    
+   
     
     _camera_view=processor->camera->getCameraImage();
     _uiview->_bad_tracking=(processor->camera->getTrackingState()!=2);
     _uiview->setHint(_stage);
     
     if(!_uiview->_playing) return;
+    
+    _amp_vibe=_audio_data->readData((float)_song_time);
+    
+//    [_song.player updateMeters];
+//    ofLog()<<powf(10, (0.05 * [_song.player averagePowerForChannel:1]));
+    
     
     _song_time=_song.positionMs;
     
@@ -126,26 +143,46 @@ void ofApp::update(){
     _camera_projection=cam_matrix.cameraProjection;
     _camera_viewmatrix=model*cam_matrix.cameraView;
     
-
-    
-   
-   
+//    return;
     
     
     if(_stage<MSTAGE-1 && _song_time>=_stage_time[_stage+1]) _stage++;
     
     /* add piano piece */
-    if(_detect_feature.size()>0){
-        if(_ipiano<MPIANO){
-            if(_song_time>=_piano_time[_ipiano]){
-                ofLog()<<"add effect!";
-                addARPiece(*_detect_feature.begin());
-                _ipiano++;
+    if(_ipiano<MPIANO){
+        if(_song_time>=_piano_time[_ipiano]){
+            ofLog()<<"add effect!";
+            if(_ipiano>5){
+                if(_detect_feature.size()>0){
+                    addARPiece(_detect_feature.front());
+                    _detect_feature.pop_front();
+                }
+            }
+            if(_stage==1) updateFeaturePoint();
+            _ipiano++;
+            
+        }
+    }
+    if(_irain<MRAIN){
+        if(_song_time>=_rain_time[_irain]){
+            ofLog()<<"add rain!";
+            if(_detect_feature.size()>0){
+                addARParticle(_detect_feature.front());
+                _detect_feature.pop_front();
+            }
+            _irain++;
+            
+        }
+    }else{
+        if(_stage<3 && ofRandom(30)<1){
+            ofLog()<<"add rain!";
+            if(_detect_feature.size()>0){
+                addARParticle(_detect_feature.front());
                 _detect_feature.pop_front();
             }
         }
     }
-    list<ofVec3f> pts_;
+    
     switch(_stage){
         case 0:
             _shader_threshold=ofMap(_song_time,0,_stage_time[1],0,.7);
@@ -154,14 +191,6 @@ void ofApp::update(){
         case 1: // auto add line
             _shader_threshold=1.0;
             _sobel_threshold=.5;
-            
-            //if(_detect_feature.size()<MAX_MFEATURE){
-            if(ofGetFrameNum()%60==0){
-                pts_=processor->pointCloud.getPoints(this->session.currentFrame);
-                //random_shuffle(pts_.begin(), pts_.end());
-                _detect_feature.insert(_detect_feature.begin(),pts_.begin(),pts_.end());
-                if(_detect_feature.size()>MAX_MFEATURE) _detect_feature.resize(MAX_MFEATURE);
-            }
             
             break;
         case 2:
@@ -184,7 +213,9 @@ void ofApp::update(){
             break;
         case 4:
             _shader_threshold=1+abs(sin(ofGetFrameNum()/30.0*TWO_PI+ofRandom(-5,5)));
-            _sobel_threshold=.8-.6*abs(sin(ofGetFrameNum()/10.0*TWO_PI+ofRandom(-5,5)));
+            _sobel_threshold=1.0-.8*abs(sin(ofGetFrameNum()/10.0*TWO_PI+ofRandom(-5,5)));
+            _sobel_threshold*=ofClamp(ofMap(_amp_vibe,.2,.8,1,0),.3,1);
+            ofLog()<<_amp_vibe<<" "<<_sobel_threshold;
             
             if(ofRandom(5)<1) addFlyObject();
             
@@ -236,13 +267,26 @@ void ofApp::update(){
     
 }
 
+void ofApp::updateFeaturePoint(){
+    
+    auto pts_=processor->pointCloud.getPoints(this->session.currentFrame);
+    pts_.resize(MAX_MDETECT/5);
+    //random_shuffle(pts_.begin(), pts_.end());
+    _detect_feature.insert(_detect_feature.begin(),pts_.begin(),pts_.end());
+    if(_detect_feature.size()>MAX_MDETECT) _detect_feature.resize(MAX_MDETECT);
+    
+}
+
 void ofApp::addARPiece(ofVec3f loc_){
     int last=-1;//ofRandom(2)<1?-1:floor(ofRandom(2000,1000));
     _feature_object.push_back(shared_ptr<DObject>(new DPiece(loc_,last)));
     if(ofRandom(3)<1){
+        int m=floor(ofRandom(1,4));
+        for(int i=0;i<m;++i){
         ofVec3f offset_(ofRandom(-1,1));
-        offset_*=DObject::rad/2;
+        offset_*=DObject::rad/10;
         _feature_object.push_back(shared_ptr<DObject>(new DPieceEdge(loc_+offset_,last)));
+        }
     }
     //random_shuffle(_feature_object.begin(), _feature_object.end());
 
@@ -311,9 +355,10 @@ ofVec3f ofApp::arScreenToWorld(ofVec3f screen_pos){
 }
 void ofApp::updateFlyCenter(){
     
-    float flyz_=-1+sin(ofGetFrameNum()/120.0)*2;
+    float flyz_=-1+(_stage<4?0:sin(ofGetFrameNum()/120.0)*2);
     ofVec3f center_=arScreenToWorld(ofVec3f(_ww/2,_wh/2,flyz_));
     ofVec3f camera_pos=processor->getCameraPosition();
+    
     
     ofVec3f dir_=center_-camera_pos;
     dir_.rotate(90*sin(ofGetFrameNum()/50.0), ofVec3f(0,0,1));
@@ -366,13 +411,13 @@ void ofApp::draw(){
     ofEnableAlphaBlending();
     
     ofDisableDepthTest();
-    
+    //ofSetBackgroundColor(0);
     drawCameraView();
    //_camera_view.draw(0, 0,ofGetWidth(),ofGetHeight());
     
     ofEnableDepthTest();
     
-    
+//    return;
     cam.begin();
     processor->setARCameraMatrices();
     
@@ -400,22 +445,32 @@ void ofApp::draw(){
     for(auto& p:_fly_object)
         if(!p->_shader_fill) p->draw();
 //
-    _camera_view.unbind();
-    
-    
-    
    
     
-    if(_stage>0 && _stage<4){
+    
+    _camera_view.unbind();
+    
+    if(_stage>0){
         ofPushStyle();
-        for(auto&p:_detect_feature){
-            ofSetColor(255,255,0,100+150*sin(ofGetFrameNum()/10.0+p.x*1000*TWO_PI));
-//            ofSetColor(255,255,0);
+        float a_=ofClamp(ofMap(_amp_vibe,.7,1,0,1),.1,1);
+        float t_=ofGetFrameNum()/(80-40.0*a_);
+        //ofLog()<<a_;
+        
+        ofVec3f p2;
+        for(auto it=_detect_feature.begin();it!=_detect_feature.end();++it){
+            auto p=*it;
+           ofSetColor(255,255,0,a_*(150+100*sin((t_+p.x*50)*TWO_PI)));
             ofDrawSphere(p.x,p.y,p.z,0.001);
+            
+//            if(a_>.8 && ofRandom(20)<1){
+//                if(p.distance(p2)<=DObject::rad/2) ofDrawLine(p2.x,p2.y,p2.z,p.x,p.y,p.z);
+//            }
+            p2=p;
         }
         ofPopStyle();
     }
     
+   
     
     
     cam.end();
@@ -423,9 +478,13 @@ void ofApp::draw(){
     
     ofDisableDepthTest();
 
-    
     _uiview->draw(_song_time);
-    
+//    ofPushStyle();
+//    ofSetColor(255,255,0);
+//    ofDrawRectangle(0, _wh/2,_amp,5);
+//    ofPopStyle();
+    //_audio_data->draw();
+
 }
 
 //--------------------------------------------------------------
@@ -649,12 +708,18 @@ void ofApp::reset(){
     _idot=1;
     _irain=1;
     
+    _amp_vibe=0;
+    
 }
 
 // ======================== BUTTON ======================== //
 void ofApp::resetButton(){
   
-    reset();
+    _feature_object.clear();
+    if(_stage!=1) setStage(1);
+    ofVec3f pos=arScreenToWorld(ofVec3f(ofGetWidth()/2,ofGetHeight()/2,-1));
+    addARPiece(pos);
+    
 }
 
 void ofApp::setPlay(int& play_){
@@ -798,27 +863,21 @@ void ofApp::loadEffectTime(){
     _stage_time[5]=272936;
     _stage_time[6]=291082;
     
-    _piano_time[0]=0;
-    _piano_time[1]=88420;
-    _piano_time[2]=91981;
-    _piano_time[3]=94718;
-    _piano_time[4]=101091;
     
-    _piano_time[5]=104171;
-    _piano_time[6]=104568;
-    _piano_time[7]=107334;
-    _piano_time[8]=113688;
-    _piano_time[9]=116805;
+    int arr_[MPIANO+1]={0,63165,69489,75801,79351,82131,
+    88432,92004,94736,101103,104215,
+    104651,107382,113709,116896,118047,
+    119954,126337,132581,138916,145298,
+    151608,154780,157897,161069,164256,
+    165046,167373,168204,170563,171345,
+    173710,174481,176869,177653,180030,
+        180811,183152,183956,186313,187116};
     
-    _piano_time[10]=118035;
-    _piano_time[11]=119977;
-    _piano_time[12]=126331;
-    _piano_time[13]=132593;
-    _piano_time[14]=138910;
+    for(int i=0;i<MPIANO;++i) _piano_time[i]=arr_[i];
     
-    _piano_time[15]=145254;
-    _piano_time[16]=151571;
-    _piano_time[17]=154697;
     
+    int arr2_[MRAIN+1]={0,113653,114463,115266,119982,120593,
+        123585,123973,124370,124941,125141,125341,125538};
+    for(int i=0;i<MRAIN;++i) _rain_time[i]=arr2_[i];
     
 }

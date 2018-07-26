@@ -86,6 +86,7 @@ public:
         
         ofPushMatrix();
         ofTranslate(_loc.x,_loc.y+_start_pos,_loc.z);
+//        ofRotate(90,1,0,0);
         ofRotate(_phi,0,1,0);
         
         //_triangle.triangleMesh.draw();

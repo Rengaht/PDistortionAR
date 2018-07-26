@@ -37,7 +37,7 @@ public:
         ofSetColor(255);
         ofNoFill();
         
-        for(auto& a:_pt) ofDrawLine(a.x,a.y,a.z,a.x,a.y+_vel*.3,a.z);
+        for(auto& a:_pt) ofDrawLine(a.x,a.y,a.z,a.x,a.y+_vel*.1,a.z);
         
         ofPopMatrix();
         

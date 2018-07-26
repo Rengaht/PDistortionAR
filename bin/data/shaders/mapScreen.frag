@@ -66,7 +66,7 @@ void main(){
 //        gl_FragColor = vec4(col);
 //    }else{
         //gl_FragColor = vec4(0.0,0.0,0.0,0.0);
-    if(mod(floor(texCoord.x*window_width),2.0)!=0.0 || cnoise(vec2(texCoord.x*20.0,texCoord.y*10.0+frame_count*5.0))<.01){
+    if(mod(floor(texCoord.x*window_width),2.0)!=0.0 || cnoise(vec2(texCoord.x*10.0,texCoord.y*20.0+frame_count*5.0))<.01){
 //    if(cnoise(vec2(texCoord.x*20.0,texCoord.y*10.0+frame_count*5.0))<.01){
             gl_FragColor=vec4(0.0);
     }else
