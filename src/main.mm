@@ -5,7 +5,7 @@
 
 float DFlyObject::maxForce=.2;
 float DFlyObject::maxSpeed=5;
-float DFlyObject::rad=.1;
+float DFlyObject::rad=.5;
 float DFlyObject::boundary=0;
 ofVec3f DFlyObject::cent=ofVec3f(0);
 
@@ -30,7 +30,10 @@ int main() {
     settings.enableHardwareOrientationAnimation = false; // enables native orientation changes to be animated.
     settings.glesVersion = OFXIOS_RENDERER_ES2; // type of renderer to use, ES1, ES2, etc.
     
+    
     ofAppiOSWindow * window = (ofAppiOSWindow *)(ofCreateWindow(settings).get());
+    window->setOrientation(OF_ORIENTATION_DEFAULT);
+    
     
     bool bUseNative = true;
     if (bUseNative){

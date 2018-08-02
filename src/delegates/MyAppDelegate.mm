@@ -12,6 +12,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    [NSThread sleepForTimeInterval:5.0];
+    
     [super applicationDidFinishLaunching:application];
     
     /**
@@ -32,9 +34,13 @@
     [self.navigationController pushViewController:[[[MyAppViewController alloc] init] autorelease]
                                          animated:YES];
     
+    [[UIApplication sharedApplication] setIdleTimerDisabled: YES];
+    
     //--- style the UINavigationController
     self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
     self.navigationController.navigationBar.topItem.title = @"Home";
+    
+
     
     return YES;
 }
@@ -42,6 +48,32 @@
 - (void) dealloc {
     self.navigationController = nil;
     [super dealloc];
+}
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
+    NSUInteger orientations = UIInterfaceOrientationMaskPortrait;
+
+
+    if(self.window.rootViewController){
+        UIViewController *presentedViewController = [self topViewControllerWithRootViewController:self.window.rootViewController];
+        orientations = [presentedViewController supportedInterfaceOrientations];
+    }
+
+    return orientations;
+}
+
+- (UIViewController*)topViewControllerWithRootViewController:(UIViewController*)rootViewController {
+    if ([rootViewController isKindOfClass:[UITabBarController class]]) {
+        UITabBarController* tabBarController = (UITabBarController*)rootViewController;
+        return [self topViewControllerWithRootViewController:tabBarController.selectedViewController];
+    } else if ([rootViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController* navigationController = (UINavigationController*)rootViewController;
+        return [self topViewControllerWithRootViewController:navigationController.visibleViewController];
+    } else if (rootViewController.presentedViewController) {
+        UIViewController* presentedViewController = rootViewController.presentedViewController;
+        return [self topViewControllerWithRootViewController:presentedViewController];
+    } else {
+        return rootViewController;
+    }
 }
 
 @end

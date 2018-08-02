@@ -30,6 +30,7 @@ class DUIView{
     
     bool _debug;
     float _margin;
+    float _scale;
     
 public:
     
@@ -38,6 +39,8 @@ public:
     
     ofEvent<int> _event_play;
     ofEvent<int> _event_time;
+    
+    
     
     DUIView(int due_){
         
@@ -49,34 +52,47 @@ public:
         _img_play.load("play-button.png");
         _img_pause.load("pause-button.png");
         
-        int fontSize=8;//_wid/4;
+        int fontSize=12;//_wid/4;
         if (ofxiOSGetOFWindow()->isRetinaSupportedOnDevice())
             fontSize*=2;
+        
         
         //font.load("fonts/mono0755.ttf", fontSize,true, false, true, 0.4, 72);
         font.load("fonts/mono0755.ttf", fontSize);
         _duration_string="/"+getTimeString(_duration);
-        string tmp=getTimeString(_duration)+_duration_string;
-        auto rec=font.getStringBoundingBox(tmp,0,0);
+//        string tmp=getTimeString(_duration)+_duration_string;
+        auto rec=font.getStringBoundingBox(_duration_string,0,0);
         _due_offset_x=rec.width;
         _due_offset_y=rec.height;
         
         _bound=ofRectangle(0,ofGetHeight()-_due_offset_y,ofGetWidth(),_due_offset_y);
-        setPlay(false);
-     
         
+        
+        
+        setPlay(false);
+        
+        setHint(0);
+        ofRectangle rec_=font.getStringBoundingBox(_hint,0,0);
+        float ww=ofGetWidth();
+        _scale=rec_.width>ww*.8?ww*.8/rec_.width:1;
+        
+        
+    
     }
     void draw(int time_){
        
+        float ww=ofGetWidth();
+        float wh=ofGetHeight();
         
         
         /* play & pause */
         ofPushMatrix();
-        ofTranslate(_play_bound.x,_play_bound.y+_play_bound.height);
+        ofTranslate(_margin,wh-_margin);
+        ofScale(_scale,_scale);
         
         ofPushStyle();
         ofSetColor(255);
-        font.drawString(_play_string,0,0);
+        font.drawString(_play_string,0,-_due_offset_y);
         
         ofPopStyle();
         
@@ -84,24 +100,29 @@ public:
         
         
         ofPushMatrix();
-        ofTranslate(_bound.x,_bound.y);
+        //ofTranslate(_bound.x,_bound.y);
         
         
 //        if(_playing) _img_play.draw(ww/2-_wid/2,0,_wid,_wid);
 //        else _img_pause.draw(ww/2-_wid/2,0,_wid,_wid);
 
         /* timeline */
-        float ww=ofGetWidth();
         
         ofPushStyle();
         
         ofSetColor(255);
 //        ofDrawRectangle(0,0,_bound.width,_bound.height/2);
         
-        font.drawString(getTimeString(time_)+_duration_string,ww-_due_offset_x-_margin,0);
+        ofPushMatrix();
+        ofTranslate(ww-_margin,wh-_margin);
+        ofScale(_scale,_scale);
+        
+        font.drawString(getTimeString(_duration-time_),-_due_offset_x,-_due_offset_y);
         
 //        ofSetColor(120);
 //        ofDrawRectangle(0,0,ofMap(time_,0,_duration,0,_bound.width),_bound.height/2);
+        
+        ofPopMatrix();
         
         ofPopStyle();
         
@@ -113,16 +134,30 @@ public:
         
         /* hint */
         ofRectangle rec_=font.getStringBoundingBox(_hint,0,0);
-        font.drawString(_hint,ww/2-rec_.width/2, ofGetHeight()/2-rec_.height/2);
+        ofPushMatrix();
+        ofTranslate(ww/2,wh/2);
+        ofScale(_scale,_scale);
+            font.drawString(_hint,-rec_.width/2, -rec_.height/2);
+        ofPopMatrix();
+        
         
         
         if(!_debug) return;
         
         // ========== DEBUG STUFF ============= //
-            int p = ofGetHeight() * 0.035;
+        
+       
         
         //    font.drawString("stage       = " + ofToString(_stage),    x, y+=p);
-            font.drawString(ofToString(ofGetFrameRate()),p/2,p);
+        ofPushMatrix();
+        ofTranslate(_margin,_margin+_due_offset_y);
+        ofScale(_scale,_scale);
+        
+            font.drawString("Hz."+ofToString(ofGetFrameRate()),0,0);
+        
+        ofPopMatrix();
+        
+        
         //    font.drawString(ofToString( ofGetFrameRate() ),p/2,p*2);
         //    font.drawString("state       = " + ofToString(processor->camera->getTrackingState()),x, y+=p);
         
@@ -139,10 +174,9 @@ public:
 //        ofPushStyle();
 //        ofSetColor(255,0,0);
 //        ofNoFill();
-//
-//        //ofDrawRectangle(_bound);
-//        ofDrawRectangle(_play_bound);
-//
+//        ofDrawRectangle(0,ofGetHeight()-_margin-_due_offset_y*2*_scale,_play_bound.width*1.2*_scale,_due_offset_y*2*_scale+_margin);
+////        ofDrawRectangle(_play_bound);
+//////
 //        ofPopStyle();
 //
 
@@ -180,7 +214,7 @@ public:
                         _hint="EXPLORE";
                         break;
                     case 2:
-                        _hint="TOUCH & MOVE";
+                        _hint="DRAW & MOVE";
                         break;
                     case 3:
                     case 4:
@@ -188,7 +222,7 @@ public:
                         break;
                     case 5:
                     case 6:
-                        _hint="STAY";
+                        _hint="  BE  ";
                         break;
                 }
             }
@@ -204,7 +238,7 @@ public:
     }
     
     bool checkTouch(ofVec2f pos_){
-        if(_play_bound.inside(pos_)){
+        if(pos_.y>ofGetHeight()-_margin-_due_offset_y*2*_scale && pos_.x<_play_bound.width*1.2*_scale){
             setPlay(!_playing);
             return true;
         }
@@ -218,6 +252,12 @@ public:
     void setPlay(bool play_){
         _play_string=play_?"pause||":"play>>";
         _play_bound=font.getStringBoundingBox(_play_string,_margin,_bound.y);
+        
+        _play_bound.y-=_play_bound.height;
+        _play_bound.height*=2;
+        _play_bound.width*=1.5;
+        
+        
         //_play_bound.x=ofGetWidth()/2-_play_bound.width/2;
 //        ofLog()<<_play_bound;
         

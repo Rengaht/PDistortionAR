@@ -45,19 +45,21 @@ public:
 //        float start_=ofRandom(30);
         float ang_=0;//start_;
         float trad_=1/20.0;
-        
+        ofVec3f f_;
         while(ang_<=360){
             ofVec3f p(1,0,0);
             p.rotate(ang_,ofVec3f(0,1,0));
+            p*=ofNoise(ang_/360);
+            
+            if(ang_==0) f_=p;
             
             _mesh.addVertex(p*_wid);
             _mesh.addTexCoord(ofVec2f(_texture_pos.x+p.x*trad_,_texture_pos.y+p.z*trad_));
             
-            ang_+=ofRandom(10,90);
+            ang_+=ofRandom(5,90);
         }
-        ofVec3f p(1,0,0);
-        _mesh.addVertex(p*_wid);
-        _mesh.addTexCoord(ofVec2f(_texture_pos.x+p.x*trad_,_texture_pos.y+p.z*trad_));
+        _mesh.addVertex(f_*_wid);
+        _mesh.addTexCoord(ofVec2f(_texture_pos.x+f_.x*trad_,_texture_pos.y+f_.z*trad_));
         
         //ofLog()<<"create "<<_mesh.getNumVertices()/3<<" triangles";
         

@@ -29,7 +29,7 @@ public:
         _loc=pos;
         _last_time=last_;
         _forever=(_last_time==-1);
-        ofLog()<<"last_time= "<<last_;
+//        ofLog()<<"last_time= "<<last_;
         _shader_fill=false;
         
     }

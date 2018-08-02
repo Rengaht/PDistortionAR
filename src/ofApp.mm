@@ -14,8 +14,10 @@ ofApp :: ~ofApp () {
 }
 
 //--------------------------------------------------------------
-void ofApp::setup(){	
-    ofBackground(127);
+void ofApp::setup(){
+    
+    ofBackground(0);
+    ofSetOrientation(OF_ORIENTATION_DEFAULT);
     
     loadEffectTime();
     
@@ -109,8 +111,11 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
+    _ww=ofGetWidth();
+    _wh=ofGetHeight();
     
-    
+    ofSetBackgroundColor(0);
+
     
     if(!_uiview->_playing || _stage==0 || _stage==5) processor->updateCamera();
     else processor->update();
@@ -151,6 +156,8 @@ void ofApp::update(){
     /* add piano piece */
     if(_ipiano<MPIANO){
         if(_song_time>=_piano_time[_ipiano]){
+            if(_stage==1) updateFeaturePoint();
+            
             ofLog()<<"add effect!";
             if(_ipiano>5){
                 if(_detect_feature.size()>0){
@@ -158,7 +165,6 @@ void ofApp::update(){
                     _detect_feature.pop_front();
                 }
             }
-            if(_stage==1) updateFeaturePoint();
             _ipiano++;
             
         }
@@ -215,7 +221,7 @@ void ofApp::update(){
             _shader_threshold=1+abs(sin(ofGetFrameNum()/30.0*TWO_PI+ofRandom(-5,5)));
             _sobel_threshold=1.0-.8*abs(sin(ofGetFrameNum()/10.0*TWO_PI+ofRandom(-5,5)));
             _sobel_threshold*=ofClamp(ofMap(_amp_vibe,.2,.8,1,0),.3,1);
-            ofLog()<<_amp_vibe<<" "<<_sobel_threshold;
+            //ofLog()<<_amp_vibe<<" "<<_sobel_threshold;
             
             if(ofRandom(5)<1) addFlyObject();
             
@@ -411,7 +417,6 @@ void ofApp::draw(){
     ofEnableAlphaBlending();
     
     ofDisableDepthTest();
-    //ofSetBackgroundColor(0);
     drawCameraView();
    //_camera_view.draw(0, 0,ofGetWidth(),ofGetHeight());
     
@@ -426,8 +431,8 @@ void ofApp::draw(){
     //_camera_view.bind();
     _shader_mapscreen.begin();
     _shader_mapscreen.setUniformTexture("inputImageTexture", _camera_view, 0);
-//    _shader_mapscreen.setUniform1f("window_width", ofGetWidth()*10.0);
-//    _shader_mapscreen.setUniform1f("window_height", ofGetHeight()*2.0);
+    _shader_mapscreen.setUniform1f("window_width", ofGetWidth()*10.0);
+    _shader_mapscreen.setUniform1f("window_height", ofGetHeight()*2.0);
     _shader_mapscreen.setUniform1f("frame_count", ((float)ofGetFrameNum()/150.0));
 //
     for(auto& p:_feature_object)
@@ -449,19 +454,19 @@ void ofApp::draw(){
     
     
     _camera_view.unbind();
-    
+//
     if(_stage>0){
         ofPushStyle();
         float a_=ofClamp(ofMap(_amp_vibe,.7,1,0,1),.1,1);
         float t_=ofGetFrameNum()/(80-40.0*a_);
         //ofLog()<<a_;
-        
+
         ofVec3f p2;
         for(auto it=_detect_feature.begin();it!=_detect_feature.end();++it){
             auto p=*it;
            ofSetColor(255,255,0,a_*(150+100*sin((t_+p.x*50)*TWO_PI)));
             ofDrawSphere(p.x,p.y,p.z,0.001);
-            
+
 //            if(a_>.8 && ofRandom(20)<1){
 //                if(p.distance(p2)<=DObject::rad/2) ofDrawLine(p2.x,p2.y,p2.z,p.x,p.y,p.z);
 //            }
@@ -578,13 +583,18 @@ void ofApp::gotMemoryWarning(){
 
 //--------------------------------------------------------------
 void ofApp::deviceOrientationChanged(int newOrientation){
-
+    //ofxiOSGetOFWindow()->setOrientation(OF_ORIENTATION_DEFAULT);
+//    _orientation=newOrientation;
 }
 
 
 void ofApp::drawCameraView(){
     
     
+//    ofPushMatrix();
+//    ofTranslate(_ww/2, _wh/2);
+//    if(_orientation==3||_orientation==4) ofRotate(90);
+//    ofTranslate(-_ww/2, -_wh/2);
     
     
 
@@ -644,8 +654,8 @@ void ofApp::drawCameraView(){
         _shader_sobel.begin();
         
         _shader_sobel.setUniformTexture("inputImageTexture", _fbo_tmp2.getTexture(), 0);
-//        _shader_sobel.setUniform1f("window_width", ww);
-//        _shader_sobel.setUniform1f("window_height", wh);
+        _shader_sobel.setUniform1f("window_width", _ww);
+        _shader_sobel.setUniform1f("window_height", _wh);
         _shader_sobel.setUniform1f("show_threshold", _shader_threshold);
         _shader_sobel.setUniform1f("sobel_threshold", _sobel_threshold);
         if(_shader_threshold<1.0) _shader_sobel.setUniformMatrix4f("particlePos", _screen_flow.getParticleMat());
@@ -678,7 +688,7 @@ void ofApp::drawCameraView(){
     
     }
 //
-    
+//    ofPopMatrix();
     
 }
 
@@ -776,16 +786,16 @@ void ofApp::setStage(int set_){
         case 3:
             shuffleFeature();
             _fly_object.clear();
-            DFlyObject::maxForce=.1*s;
-            DFlyObject::maxSpeed=6*s;
+            DFlyObject::maxForce=.07*s;
+            DFlyObject::maxSpeed=3*s;
             break;
         case 4:
             DFlyObject::maxForce=.2*s;
-            DFlyObject::maxSpeed=8*s;
+            DFlyObject::maxSpeed=5*s;
             break;
         case 5:
             DFlyObject::maxForce=.5*s;
-            DFlyObject::maxSpeed=20*s;
+            DFlyObject::maxSpeed=12*s;
             break;
         case 6:
             _feature_object.clear();

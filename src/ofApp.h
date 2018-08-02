@@ -148,6 +148,7 @@ class ofApp : public ofxiOSApp {
         bool _touched;
         ofVec2f _touch_point;
     
+        int _orientation;
     
         // ====== sample file ======//
         PAudioData *_audio_data;

@@ -47,7 +47,7 @@ public:
 //        _itime=0;
         
         //_dest_length=floor(ofRandom(100,200))*MSAND_REPEAT;
-        ofLog()<<"_dest_length= "<<_dest_length;
+//        ofLog()<<"_dest_length= "<<_dest_length;
         //ofLog()<<"_dest_length= "<<_dest_length<<" last= "<<_last_time<<" time= "<<time_<<"  vel= "<<_vel<<" _interval= "<<_interval;
 //        _shader_fill=true;
     }
@@ -86,7 +86,7 @@ public:
 //            _mesh.addTexCoord(ofVec2f(_cur_length/_dest_length+.2,_texture_pos+.2));
         }
         float m=_mesh.getNumVertices();
-        ofLog()<<m;
+//        ofLog()<<m;
         
         for(float i=0;i<m;i+=2){
             _mesh.setTexCoord(i,ofVec2f(i/2/m,_texture_pos));
