@@ -27,11 +27,11 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>ARStuff</string>
+	<string>Allow camera access to join the music AR experience.</string>
 	<key>UIApplicationExitsOnSuspend</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
